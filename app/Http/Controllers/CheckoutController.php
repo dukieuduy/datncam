@@ -19,7 +19,7 @@ class CheckoutController extends Controller
             return redirect()->route('carts.index')->with('error', 'Giỏ hàng của bạn đang trống.');
         }
 
-        return view('user.checkout.checkout', compact('cart'));
+        return view('client.checkout.checkout', compact('cart'));
     }
 
 }
