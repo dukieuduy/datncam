@@ -66,7 +66,7 @@ class CartController extends Controller
         }
 
         $totalQuantity = $cart->items->sum('quantity');
-        return view('user.cart.show', compact('cart', 'totalQuantity'));
+        return view('client.cart.show', compact('cart', 'totalQuantity'));
     }
 
 
@@ -136,6 +136,6 @@ class CartController extends Controller
 
     public function index()
     {
-        return view('user.cart.hihi');
+        return view('client.cart.hihi');
     }
 }
