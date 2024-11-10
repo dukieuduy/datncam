@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminCartController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CheckoutController;
+// use App\Http\Controllers\AdminCartController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminCartController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +52,13 @@ Route::get('/order/success', function () {
 Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
 Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
 Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
+
+// login-logout-register
+Route::get('/login',[UserController::class,'login'])->name('login');
+Route::post('/login',[UserController::class,'postlogin']);
+
+Route::get('/register',[UserController::class,'register'])->name('register');
+Route::post('/register',[UserController::class,'postRegister']);
+
+Route::post('/logout',[UserController::class, 'logout'])->name('logout');
+

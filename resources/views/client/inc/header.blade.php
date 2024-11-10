@@ -20,12 +20,35 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="top_right text-end">
                             <ul>
-                                <li class="top_links"><a href="#"><i class="ion-android-person"></i> My Account<i class="ion-ios-arrow-down"></i></a>
+                                <li class="top_links"><a href="#"><i class="ion-android-person"></i> @if (Auth::check())
+                                    {{Auth::user()->name}}<i class="ion-ios-arrow-down"></i></a>
+                                @else 
+                                    My Account
+                                @endif
+                                    
                                     <ul class="dropdown_links">
-                                        <li><a href="checkout.html">Checkout </a></li>
-                                        <li><a href="my-account.html">My Account </a></li>
+                                        <li><a href="checkout.html">checkout </a></li>
+                                        @if (Auth::check())
+                                         <li><a href="my-account.html">{{Auth::user()->name}} </a></li>
+                                            @else 
+                                                My Account
+                                            @endif
+                                        </li>
+                                        {{-- <li><a href="my-account.html">{{Auth::user()->name}} </a></li> --}}
                                         <li><a href="cart.html">Shopping Cart</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
+                                        @if (Auth::check())
+                                        <li>
+                                            <form action="{{route('logout')}}" method="POST">
+                                                @csrf
+                                                <button type="submit" onclick="return confirm('bạn muốn đăng xuất')" class="btn btn-transparent text-decoration-none">Logout</button>
+                                            </form>
+                                            {{-- <a href="{{route('logout')}}" >Logout</a> --}}
+                                        </li>
+                                        @else 
+                                        <li><a href="{{route('login')}}" >Login</a></li>
+                                            
+                                        @endif
                                     </ul>
                                 </li>
                                 <li class="language"><a href="#"><img src="assets/img/logo/language.png" alt="">en-gb<i class="ion-ios-arrow-down"></i></a>
