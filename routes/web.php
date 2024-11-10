@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,3 +50,9 @@ Route::get('/order/success', function () {
 Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
 Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
 Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
+
+
+
+// whishlist
+
+Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
