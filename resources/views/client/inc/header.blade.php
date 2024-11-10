@@ -80,7 +80,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3">
                     <div class="logo">
-                        <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                        <h1 style="color: #ff6300">CAMCAM</h1>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -361,15 +361,7 @@
                             <nav>
                                 <ul>
                                     <li><a href="index.html">home<i class="fa fa-angle-down"></i></a>
-                                        <ul class="sub_menu">
-                                            <li><a href="index.html">Home 1</a></li>
-                                            <li><a href="index-2.html">Home 2</a></li>
-                                            <li><a href="index-3.html">Home 3</a></li>
-                                            <li><a href="index-4.html">Home 4</a></li>
-                                            <li><a href="index-5.html">Home 5</a></li>
-                                            <li><a href="index-6.html">Home 6</a></li>
-                                            <li class="home7new"><a href="index-7.html">Home 7</a><span>new</span></li>
-                                        </ul>
+                                       
                                     </li>
                                     <li class="mega_items"><a href="shop.html">shop<i class="fa fa-angle-down"></i></a>
                                         <div class="mega_menu">
@@ -519,15 +511,7 @@
                         <ul class="offcanvas_main_menu">
                             <li class="menu-item-has-children">
                                 <a href="#">Home</a>
-                                <ul class="sub-menu">
-                                    <li><a href="index.html">Home 1</a></li>
-                                    <li><a href="index-2.html">Home 2</a></li>
-                                    <li><a href="index-3.html">Home 3</a></li>
-                                    <li><a href="index-4.html">Home 4</a></li>
-                                    <li><a href="index-5.html">Home 5</a></li>
-                                    <li><a href="index-6.html">Home 6</a></li>
-                                    <li><a href="index-7.html">Home 7</a></li>
-                                </ul>
+                                
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Shop</a>
