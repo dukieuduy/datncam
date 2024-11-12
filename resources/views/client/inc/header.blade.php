@@ -27,6 +27,35 @@
                                         <li><a href="my-account.html">My Account </a></li>
                                         <li><a href="cart.html">Shopping Cart</a></li>
                                         <li><a href="{{ route('wishlist.show') }}">Wishlist</a></li>
+                                <li class="top_links"><a href="#"><i class="ion-android-person"></i> @if (Auth::check())
+                                    {{Auth::user()->name}}<i class="ion-ios-arrow-down"></i></a>
+                                @else
+                                    My Account
+                                @endif
+
+                                    <ul class="dropdown_links">
+                                        <li><a href="checkout.html">checkout </a></li>
+                                        @if (Auth::check())
+                                         <li><a href="my-account.html">{{Auth::user()->name}} </a></li>
+                                            @else
+                                                My Account
+                                            @endif
+                                        </li>
+                                        {{-- <li><a href="my-account.html">{{Auth::user()->name}} </a></li> --}}
+                                        <li><a href="{{ route('cart.show') }}">Shopping Cart</a></li>
+                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                        @if (Auth::check())
+                                        <li>
+                                            <form action="{{route('logout')}}" method="POST">
+                                                @csrf
+                                                <button type="submit" onclick="return confirm('bạn muốn đăng xuất')" class="btn btn-transparent text-decoration-none">Logout</button>
+                                            </form>
+                                            {{-- <a href="{{route('logout')}}" >Logout</a> --}}
+                                        </li>
+                                        @else
+                                        <li><a href="{{route('login')}}" >Login</a></li>
+
+                                        @endif
                                     </ul>
                                 </li>
                                 <li class="language"><a href="#"><img src="assets/img/logo/language.png"
@@ -61,7 +90,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3">
                     <div class="logo">
-                        <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                        <h1 style="color: #ff6300">CAMCAM</h1>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -81,7 +110,7 @@
                                 <span class="wishlist_quantity">3</span>
                             </div>
                             <div class="mini_cart_wrapper">
-                                <a href="javascript:void(0)"><span class="lnr lnr-cart"></span>My Cart </a>
+                                <a href="{{ route('cart.show') }}"><span class="lnr lnr-cart"></span>My Cart </a>
                                 <span class="cart_quantity">2</span>
                             </div>
                         </div>
@@ -94,7 +123,7 @@
     <!--header middel end-->
 
     <!--mini cart-->
-    <div class="mini_cart">
+    {{-- <div class="mini_cart">
         <div class="cart_close">
             <div class="cart_text">
                 <h3>cart</h3>
@@ -144,7 +173,7 @@
 
         <div class="mini_cart_footer">
             <div class="cart_button">
-                <a href="cart.html">View cart</a>
+                <a href="{{ route('cart.show') }}">View cart</a>
             </div>
             <div class="cart_button">
                 <a class="active" href="checkout.html">Checkout</a>
@@ -152,7 +181,7 @@
 
         </div>
 
-    </div>
+    </div> --}}
     <!--mini cart end-->
 
     <!--header bottom satrt-->
@@ -360,6 +389,7 @@
                                             <li class="home7new"><a href="index-7.html">Home 7</a><span>new</span>
                                             </li>
                                         </ul>
+
                                     </li>
                                     <li class="mega_items"><a href="shop.html">shop<i
                                                 class="fa fa-angle-down"></i></a>
@@ -377,7 +407,7 @@
                                                 </li>
                                                 <li><a href="#">other Pages</a>
                                                     <ul>
-                                                        <li><a href="cart.html">cart</a></li>
+                                                        <li><a href="{{ route('cart.show') }}">cart</a></li>
                                                         <li><a href="wishlist.html">Wishlist</a></li>
                                                         <li><a href="checkout.html">Checkout</a></li>
                                                         <li><a href="my-account.html">my account</a></li>
@@ -470,7 +500,7 @@
                                 <ul class="dropdown_links">
                                     <li><a href="checkout.html">Checkout </a></li>
                                     <li><a href="my-account.html">My Account </a></li>
-                                    <li><a href="cart.html">Shopping Cart</a></li>
+                                    <li><a href="{{ route('cart.show') }}">Shopping Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                 </ul>
                             </li>
@@ -516,15 +546,7 @@
                         <ul class="offcanvas_main_menu">
                             <li class="menu-item-has-children">
                                 <a href="#">Home</a>
-                                <ul class="sub-menu">
-                                    <li><a href="index.html">Home 1</a></li>
-                                    <li><a href="index-2.html">Home 2</a></li>
-                                    <li><a href="index-3.html">Home 3</a></li>
-                                    <li><a href="index-4.html">Home 4</a></li>
-                                    <li><a href="index-5.html">Home 5</a></li>
-                                    <li><a href="index-6.html">Home 6</a></li>
-                                    <li><a href="index-7.html">Home 7</a></li>
-                                </ul>
+
                             </li>
                             <li class="menu-item-has-children">
                                 <a href="#">Shop</a>
@@ -543,7 +565,7 @@
                                     <li class="menu-item-has-children">
                                         <a href="#">other Pages</a>
                                         <ul class="sub-menu">
-                                            <li><a href="cart.html">cart</a></li>
+                                            <li><a href="{{ route('cart.show') }}">cart</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="my-account.html">my account</a></li>

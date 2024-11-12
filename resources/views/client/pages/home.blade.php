@@ -4,42 +4,42 @@
     <!--slider area start-->
     <section class="slider_section slider_two mb-50">
         <div class="slider_area owl-carousel">
-            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider4.jpg">
+            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/thenewbanner/banner1.webp">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider_content">
-                                <h2>HP Racer Skutex</h2>
-                                <h1>Feel The Greatest Oil Power With Best One Oil</h1>
-                                <a class="button" href="shop.html">shopping now</a>
+                                <h2 style="color:white">Gentleman's Class</h2>
+                                <h1 style="color:white">Beauty without Words, Style without Limits</h1>
+                                <a class="button" href="shop.html">Shopping now!</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider5.jpg">
+            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/thenewbanner/banner2.png">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider_content">
-                                <h2>Special Offer</h2>
-                                <h1>Get &250 In Total Discount On A New Set Of Tries</h1>
-                                <a class="button" href="shop.html">shopping now</a>
+                                <h2 style="color:white">The Elegance of a Lady</h2>
+                                <h1 style="color:white">Perfectly Elegant, Captivating Every Gaze</h1>
+                                <a class="button" href="shop.html">Shopping now!</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/slider6.jpg">
+            <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/thenewbanner/banner3.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="slider_content">
-                                <h2>Over 15,000</h2>
-                                <h1>Remanufactured Low Milage Used Engines For Sale</h1>
-                                <a class="button" href="shop.html">shopping now</a>
+                                <h2 style="color:white">- Power, Luxury, Class -</h2>
+                                <h1 style="color:white">The Aura of a Person with Charisma</h1>
+                                <a class="button" href="shop.html">Shopping now!</a>
                             </div>
                         </div>
                     </div>
@@ -4483,31 +4483,5 @@
     <!--brand area end-->
 
 
-    <!--call to action start-->
-    <section class="call_to_action">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="call_action_inner">
-                        <div class="call_text">
-                            <h3>We Have <span>Recommendations</span> for You</h3>
-                            <p>Take 30% off when you spend $150 or more with code Autima11</p>
-                        </div>
-                        <div class="discover_now">
-                            <a href="#">discover now</a>
-                        </div>
-                        <div class="link_follow">
-                            <ul>
-                                <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                                <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                                <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
-                                <li><a href="#"><i class="ion-social-youtube"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--call to action end-->
-@endsection
+
+    @endsection
