@@ -100,7 +100,7 @@
                                 <span class="wishlist_quantity">3</span>
                             </div>
                             <div class="mini_cart_wrapper">
-                                <a href="javascript:void(0)"><span class="lnr lnr-cart"></span>My Cart </a>
+                                <a href="{{ route('cart.show') }}"><span class="lnr lnr-cart"></span>My Cart </a>
                                 <span class="cart_quantity">2</span>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
     <!--header middel end-->
 
     <!--mini cart-->
-    <div class="mini_cart">
+    {{-- <div class="mini_cart">
         <div class="cart_close">
             <div class="cart_text">
                 <h3>cart</h3>
@@ -171,7 +171,7 @@
 
         </div>
 
-    </div>
+    </div> --}}
     <!--mini cart end-->
 
     <!--header bottom satrt-->

@@ -114,5 +114,5 @@
              </form>
          </div>
      </div>
- @endsection
+ @endsection 
  <!--shopping cart area end -->
