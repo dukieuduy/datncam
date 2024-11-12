@@ -37,7 +37,11 @@ Route::post('/cart/update/{productId}', [CartController::class, 'updateItem'])->
 Route::delete('/cart/remove/{productId}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::put('/cart/update/{productId}', [CartController::class, 'updateItem'])->name('cart.update');
 
+<<<<<<< HEAD
 Route::get('/hihi', [CartController::class, 'index'])->name('cart.hihi');
+=======
+Route::get('/hihi', [CartController::class, 'index'])->name('client.cart.hihi');
+>>>>>>> origin/main
 
 //checkout
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.index');
@@ -49,9 +53,15 @@ Route::get('/order/success', function () {
 
 
 // admin
+<<<<<<< HEAD
 // Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
 // Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
 // Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
+=======
+Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
+Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
+Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
+>>>>>>> origin/main
 
 // login-logout-register
 Route::get('/login',[UserController::class,'login'])->name('login');
@@ -62,4 +72,7 @@ Route::post('/register',[UserController::class,'postRegister']);
 
 Route::post('/logout',[UserController::class, 'logout'])->name('logout');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main

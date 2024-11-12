@@ -186,6 +186,7 @@
                             </div>
                             <div class="categories_menu_toggle">
                                 <ul>
+<<<<<<< HEAD
                                     <li class="menu_item_children categorie_list"><a href="#">Brake Parts <i class="fa fa-angle-right"></i></a>
                                         <ul class="categories_mega_menu">
                                             <li class="menu_item_children"><a href="#">Wheel Bearings</a>
@@ -347,6 +348,8 @@
 
                                         </ul>
                                     </li>
+=======
+>>>>>>> origin/main
                                     <li><a href="#"> Accessories</a></li>
                                     <li><a href="#">Body Parts</a></li>
                                     <li><a href="#">Perfomance Filters</a></li>
