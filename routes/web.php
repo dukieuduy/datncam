@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
+
 use App\Models\User;
 
 /*
@@ -40,7 +42,7 @@ Route::post('/cart/update/{productId}', [CartController::class, 'updateItem'])->
 Route::delete('/cart/remove/{productId}', [CartController::class, 'removeItem'])->name('cart.remove');
 Route::put('/cart/update/{productId}', [CartController::class, 'updateItem'])->name('cart.update');
 
-Route::get('/hihi', [CartController::class, 'index'])->name('client.cart.hihi');
+Route::get('/hihi', [CartController::class, 'index'])->name('hihi');
 
 //checkout
 Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.index');
@@ -67,3 +69,5 @@ Route::get('/register',[UserController::class,'register'])->name('register');
 Route::post('/register',[UserController::class,'postRegister']);
 
 Route::post('/logout',[UserController::class, 'logout'])->name('logout');
+//dashboard 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
