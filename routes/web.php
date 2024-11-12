@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\WishlistController;
 // use App\Http\Controllers\AdminCartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
@@ -61,6 +63,11 @@ Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.i
 Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
 Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
 
+
+
+// whishlist
+
+Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
 // login-logout-register
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/login',[UserController::class,'postlogin']);
@@ -69,5 +76,5 @@ Route::get('/register',[UserController::class,'register'])->name('register');
 Route::post('/register',[UserController::class,'postRegister']);
 
 Route::post('/logout',[UserController::class, 'logout'])->name('logout');
-//dashboard 
+//dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
