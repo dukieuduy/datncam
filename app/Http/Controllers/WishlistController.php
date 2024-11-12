@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
- public function show()
+    public function show()
     {
         return view('client.pages.wishlist');
     }
