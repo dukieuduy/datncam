@@ -61,14 +61,16 @@ class CartController extends Controller
                 }
             }
 
-            if (!$cart) {
-                return response()->json(['message' => 'Cart is empty']);
-            }
-
-            $totalQuantity = $cart->items->sum('quantity');
-            return view('client.pages.cart.show', compact('cart', 'totalQuantity'));
+        if (!$cart) {
+            return response()->json(['message' => 'Cart is empty']);
         }
 
+        $totalQuantity = $cart->items->sum('quantity');
+        return view('client.pages.cart.show', compact('cart', 'totalQuantity'));
+    }
+
+
+   
 
         // Sửa số lượng sản phẩm trong giỏ hàng
         public function updateItem(Request $request, $productId)
