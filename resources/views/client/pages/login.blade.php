@@ -37,11 +37,21 @@
                             @csrf
                             <p>
                                 <label>Email <span>*</span></label>
-                                <input type="text" name="email" required>
+                                <input type="text" name="email" >
+                                @if ($errors->has('email'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('email') }}
+                                </div>
+                            @endif
                             </p>
                             <p>
                                 <label>Passwords <span>*</span></label>
-                                <input type="password" name="password" required>
+                                <input type="password" name="password" >
+                                @if ($errors->has('password'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('password') }}
+                                </div>
+                            @endif
                             </p>
                             <div class="login_submit">
                                 <a href="#">Lost your password?</a>

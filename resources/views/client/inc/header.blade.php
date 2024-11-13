@@ -30,10 +30,9 @@
                                         <li><a href="checkout.html">checkout </a></li>
                                         @if (Auth::check())
                                          <li><a href="my-account.html">{{Auth::user()->name}} </a></li>
-                                            @else 
-                                                My Account
+                                            {{-- @else  --}}
+                                               {{-- <li><a href="my-account.html">My Account</a></li></li>  --}}
                                             @endif
-                                        </li>
                                         {{-- <li><a href="my-account.html">{{Auth::user()->name}} </a></li> --}}
                                         <li><a href="cart.html">Shopping Cart</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
@@ -47,7 +46,7 @@
                                         </li>
                                         @else 
                                         <li><a href="{{route('login')}}" >Login</a></li>
-                                            
+                                        <li><a href="{{route('register')}}" >Register</a></li>     
                                         @endif
                                     </ul>
                                 </li>

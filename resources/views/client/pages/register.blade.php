@@ -30,19 +30,36 @@
                             @csrf
                             <p>
                                 <label>Name <span>*</span></label>
-                                <input type="text" name="name" required>
+                                <input type="text" name="name" >
+                                @if ($errors->has('name'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('name') }}
+                                </div>
+                            @endif
+                                
                             </p>
                             <p>
                                 <label>Email address <span>*</span></label>
-                                <input type="text" name="email" required>
+                                <input type="text" name="email" >
+                                @if ($errors->has('email'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('email') }}
+                                </div>
+                            @endif
                             </p>
                             <p>
                                 <label>Passwords <span>*</span></label>
-                                <input type="password" name="password" required>
+                                <input type="password" name="password" >
+                                @if ($errors->has('password'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('password') }}
+                                </div>
+                            @endif
+
                             </p>
                             <p>
                                 <label>Confirm Passwords <span>*</span></label>
-                                <input type="password" name="confirm_password" required>
+                                <input type="password" name="password_confirmation" >
                             </p>
                             <div class="login_submit">
                                 
