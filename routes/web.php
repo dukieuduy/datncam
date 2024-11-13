@@ -71,3 +71,9 @@ Route::post('/register',[UserController::class,'postRegister']);
 Route::post('/logout',[UserController::class, 'logout'])->name('logout');
 //dashboard 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// admin
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
