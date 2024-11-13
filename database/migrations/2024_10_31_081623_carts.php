@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();;
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }
 
-    public function down(): void
-    {
+    public function down(): void    {
         Schema::dropIfExists('carts');
     }
 };
