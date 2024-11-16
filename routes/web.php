@@ -81,11 +81,10 @@ Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.sho
 // Route::post('/register',[UserController::class,'postRegister']);
 // Route::post('/logout',[UserController::class, 'logout'])->name('logout');
 // Route::get('/test-email',[UserController::class,'testEmail']);
-
-Route::get('/forget-password',[UserController::class,'forgetPass'])->name('customer.forgetPass');
-Route::post('/forget-password',[UserController::class,'postForgetPassword']);
-Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
-Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
+// Route::get('/forget-password',[UserController::class,'forgetPass'])->name('customer.forgetPass');
+// Route::post('/forget-password',[UserController::class,'postForgetPassword']);
+// Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
+// Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
 
 
 
