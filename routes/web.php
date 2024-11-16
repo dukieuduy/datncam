@@ -3,14 +3,17 @@
 
 use App\Models\User;
 // use App\Http\Controllers\AdminCartController;
+use App\Http\Middleware\IsMember;
+use App\Http\Middleware\IsAdmin;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\HomeController;
 // use App\Http\Controllers\AdminCartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CheckoutController;
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -91,7 +94,9 @@ Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass
 
 
 //dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth',IsAdmin::class]);
+// Route::get('/dashboard1', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth',IsAdmin::class]);
+
 
 // admin
 // Route::group(['prefix' => 'admin'], function () {
