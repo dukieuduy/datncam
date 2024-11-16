@@ -20,69 +20,37 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="top_right text-end">
                             <ul>
-                                <li class="top_links"><a href="#"><i class="ion-android-person"></i> My Account<i
-                                            class="ion-ios-arrow-down"></i></a>
-                                    <ul class="dropdown_links">
-                                        <li><a href="checkout.html">Checkout </a></li>
-                                        <li><a href="my-account.html">My Account </a></li>
-                                        <li><a href="cart.html">Shopping Cart</a></li>
-                                        <li><a href="{{ route('wishlist.show') }}">Wishlist</a></li>
-                                <li class="top_links"><a href="#"><i class="ion-android-person"></i> @if (Auth::check())
-                                    {{Auth::user()->name}}<i class="ion-ios-arrow-down"></i></a>
-                                @else
-                                    My Account
+                                @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('đăng nhập') }}</a>
+                                    </li>
                                 @endif
-
-                                    <ul class="dropdown_links">
-                                        <li><a href="checkout.html">checkout </a></li>
-                                        @if (Auth::check())
-                                         <li><a href="my-account.html">{{Auth::user()->name}} </a></li>
-<<<<<<< HEAD
-                                            {{-- @else  --}}
-                                               {{-- <li><a href="my-account.html">My Account</a></li></li>  --}}
-=======
-                                            @else
-                                                My Account
->>>>>>> 4723a2dab49a7c1304f8588b12fa4bc65c36cb12
-                                            @endif
-                                        {{-- <li><a href="my-account.html">{{Auth::user()->name}} </a></li> --}}
-                                        <li><a href="{{ route('cart.show') }}">Shopping Cart</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                        @if (Auth::check())
-                                        <li>
-                                            <form action="{{route('logout')}}" method="POST">
-                                                @csrf
-                                                <button type="submit" onclick="return confirm('bạn muốn đăng xuất')" class="btn btn-transparent text-decoration-none">Logout</button>
-                                            </form>
-                                            {{-- <a href="{{route('logout')}}" >Logout</a> --}}
-                                        </li>
-                                        @else
-                                        <li><a href="{{route('login')}}" >Login</a></li>
-<<<<<<< HEAD
-                                        <li><a href="{{route('register')}}" >Register</a></li>     
-=======
-
->>>>>>> 4723a2dab49a7c1304f8588b12fa4bc65c36cb12
-                                        @endif
-                                    </ul>
+    
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('đăng ký') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+    
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </li>
-                                <li class="language"><a href="#"><img src="assets/img/logo/language.png"
-                                            alt="">en-gb<i class="ion-ios-arrow-down"></i></a>
-                                    <ul class="dropdown_language">
-                                        <li><a href="#"><img src="assets/img/logo/language.png" alt="">
-                                                English</a></li>
-                                        <li><a href="#"><img src="assets/img/logo/language2.png" alt="">
-                                                Germany</a></li>
-                                    </ul>
-                                </li>
-                                <li class="currency"><a href="#">$ USD<i class="ion-ios-arrow-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">EUR – Euro</a></li>
-                                        <li><a href="#">GBP – British Pound</a></li>
-                                        <li><a href="#">INR – India Rupee</a></li>
-                                    </ul>
-                                </li>
-
+                            @endguest
 
                             </ul>
                         </div>

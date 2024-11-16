@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 // use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
     public function login(){
@@ -64,5 +64,16 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->back();
     }
+
+    public function testEmail(){
+        Mail::send('client.pages.email.test',['name'=>'test mail name'],function($email){
+            $email->to('dukdph34015@fpt.edu.vn','đồ đồng nát');
+        });
+    }
+
+    public function forgetPass(){
+        return view('client.pages.email.forgetPass');
+    }
+    public function postForgetPass(){}
 }
 

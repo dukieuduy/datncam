@@ -54,7 +54,7 @@
                             @endif
                             </p>
                             <div class="login_submit">
-                                <a href="#">Lost your password?</a>
+                                <a href="{{route('customer.forgetPass')}}">Quên mật khẩu?</a>
                                 <a href="{{route('register')}}" class="text-primary hover:text-danger" style="margin-left: 2%">Register</a>
                                 <label for="remember">
                                     <input id="remember" type="checkbox">

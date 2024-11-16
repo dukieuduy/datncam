@@ -1,17 +1,18 @@
 <?php
 
 
-use App\Http\Controllers\WishlistController;
+use App\Models\User;
 // use App\Http\Controllers\AdminCartController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\AdminCartController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\DashboardController;
 
-use App\Models\User;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,28 +60,45 @@ Route::get('/order/success', function () {
 
 
 // admin cart
-Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
-Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
-Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
+// Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
+// Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
+// Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admin.cart.destroy');
 
 
 
 // whishlist
 
 Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
-// login-logout-register
-Route::get('/login',[UserController::class,'login'])->name('login');
-Route::post('/login',[UserController::class,'postlogin']);
 
-Route::get('/register',[UserController::class,'register'])->name('register');
-Route::post('/register',[UserController::class,'postRegister']);
 
-Route::post('/logout',[UserController::class, 'logout'])->name('logout');
+// login-logout-register-forgetpassword
+// Route::get('/login',[UserController::class,'login'])->name('login');
+// Route::post('/login',[UserController::class,'postlogin']);
+// Route::get('/register',[UserController::class,'register'])->name('register');
+// Route::post('/register',[UserController::class,'postRegister']);
+// Route::post('/logout',[UserController::class, 'logout'])->name('logout');
+// Route::get('/test-email',[UserController::class,'testEmail']);
+
+Route::get('/forget-password',[UserController::class,'forgetPass'])->name('customer.forgetPass');
+Route::post('/forget-password',[UserController::class,'postForgetPassword']);
+Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
+Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
+
+
+
+
+
+
+
 //dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // admin
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
+// Route::group(['prefix' => 'admin'], function () {
+//     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
