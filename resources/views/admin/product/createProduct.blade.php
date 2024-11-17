@@ -1,0 +1,1 @@
+<div>đây là trang create product</div>
