@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
-
     <!--slider area start-->
+    {{-- banner --}}
     <section class="slider_section slider_two mb-50">
         <div class="slider_area owl-carousel">
             <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/thenewbanner/banner1.webp">
@@ -99,6 +99,8 @@
     </section>
     <!--shipping area end-->
     <!--product area start-->
+
+    
     <section class="product_area mb-50">
         <div class="container">
             <div class="row">
@@ -126,7 +128,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="brake" role="tabpanel">
                     <div class="product_carousel product_column5 owl-carousel">
-                        <div class="single_product_list">
+                        {{-- <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
                                     <h3><a href="{{ route('detail-product', 1) }}">JBL Flip 3 Splasroof Portable Bluetooth 2</a>
@@ -223,18 +225,21 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
+                        @foreach ($products as $item)      
+
                         <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
-                                    <h3><a href="product-details.html">Variable with soldout product for title</a></h3>
+                                    <h3><a href="{{ route('detail-product', ['id' => $item->id]) }}">{{ $item->name }}</a></h3>
                                     <p class="manufacture_product"><a href="#">Accessories</a></p>
                                 </div>
                                 <div class="product_thumb">
-                                    <a class="primary_img" href="{{ route('detail-product', 1) }}"><img
-                                            src="assets/img/product/product10.jpg" alt=""></a>
-                                    <a class="secondary_img" href="{{ route('detail-product', 1) }}"><img
-                                            src="assets/img/product/product11.jpg" alt=""></a>
+                                    <a class="primary_img" href="#"> <img src="{{ asset('storage/' . $item->lowest_price_image)}}" alt=""></a>
+                                    {{-- <a class="secondary_img" href="#"><img
+                                            src="{{ asset('storage/' . $item->lowest_price_image)}}" alt=""></a> --}}
+                                            {{-- <a class="secondary_img" href="#"> <img src="{{ asset('storage/' . $item->lowest_price_image)}}" alt=""> </a> --}}
+                                            
                                     <div class="label_product">
                                         <span class="label_sale">-57%</span>
                                     </div>
@@ -263,7 +268,7 @@
                                     </div>
                                     <div class="product_footer d-flex align-items-center">
                                         <div class="price_box">
-                                            <span class="regular_price">$150.00</span>
+                                            <span class="regular_price">{{$item->lowest_price_variation}}</span>
                                         </div>
                                         <div class="add_to_cart">
                                             <a href="cart.html" title="add to cart"><span
@@ -272,55 +277,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="single_product">
-                                <div class="product_name">
-                                    <h3><a href="product-details.html">Lorem ipsum dolor sit amet, consectetur</a></h3>
-                                    <p class="manufacture_product"><a href="#">Accessories</a></p>
-                                </div>
-                                <div class="product_thumb">
-                                    <a class="primary_img" href="product-details.html"><img
-                                            src="assets/img/product/product12.jpg" alt=""></a>
-                                    <a class="secondary_img" href="product-details.html"><img
-                                            src="assets/img/product/product7.jpg" alt=""></a>
-                                    <div class="label_product">
-                                        <span class="label_sale">-57%</span>
-                                    </div>
 
-                                    <div class="action_links">
-                                        <ul>
-                                            <li class="quick_button"><a href="#" data-bs-toggle="modal"
-                                                                        data-bs-target="#modal_box" title="quick view">
-                                                    <span class="lnr lnr-magnifier"></span></a></li>
-                                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><span
-                                                        class="lnr lnr-heart"></span></a></li>
-                                            <li class="compare"><a href="compare.html" title="compare"><span
-                                                        class="lnr lnr-sync"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product_content">
-                                    <div class="product_ratings">
-                                        <ul>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-star"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product_footer d-flex align-items-center">
-                                        <div class="price_box">
-                                            <span class="regular_price">$175.00</span>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            <a href="cart.html" title="add to cart"><span
-                                                    class="lnr lnr-cart"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="single_product_list">
+                        @endforeach
+
+                        {{-- <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
                                     <h3><a href="{{ route('detail-product', 1) }}">JBL Flip 3 Splasroof Portable Bluetooth 2</a>
@@ -418,8 +379,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="single_product_list">
+                        </div> --}}
+                        {{-- <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
                                     <h3><a href="product-details.html">Koss Porta Pro On Ear Headphones </a></h3>
@@ -804,7 +765,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="wheels" role="tabpanel">
@@ -907,7 +868,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="single_product_list">
+                        {{-- <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
                                     <h3><a href="product-details.html">Variable with soldout product for title</a></h3>
@@ -1002,8 +963,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="single_product_list">
+                        </div> --}}
+                        {{-- <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
                                     <h3><a href="product-details.html">JBL Flip 3 Splasroof Portable Bluetooth 2</a>
@@ -1485,7 +1446,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="turbo" role="tabpanel">

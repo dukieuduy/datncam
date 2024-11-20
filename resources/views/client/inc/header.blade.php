@@ -66,7 +66,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3">
                     <div class="logo">
-                        <h1 style="color: #ff6300">CAMCAM</h1>
+                        <a href="{{route('home')}}"><h1 style="color: #ff6300">CAMCAM</h1></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
@@ -86,7 +86,7 @@
                                 <span class="wishlist_quantity">3</span>
                             </div>
                             <div class="mini_cart_wrapper">
-                                <a href="{{ route('cart.show') }}"><span class="lnr lnr-cart"></span>My Cart </a>
+                                <a href="{{route('cart.index')}}"><span class="lnr lnr-cart"></span>My Cart </a>
                                 <span class="cart_quantity">2</span>
                             </div>
                         </div>
@@ -354,7 +354,7 @@
                         <div class="main_menu">
                             <nav>
                                 <ul>
-                                    <li><a href="index.html">home<i class="fa fa-angle-down"></i></a>
+                                    <li><a href="{{route('home')}}">Trang chủ<i class="fa fa-angle-down"></i></a>
                                         <ul class="sub_menu">
                                             <li><a href="index.html">Home 1</a></li>
                                             <li><a href="index-2.html">Home 2</a></li>
@@ -383,7 +383,7 @@
                                                 </li>
                                                 <li><a href="#">other Pages</a>
                                                     <ul>
-                                                        <li><a href="{{ route('cart.show') }}">cart</a></li>
+                                                        <li><a href="#">cart</a></li>
                                                         <li><a href="wishlist.html">Wishlist</a></li>
                                                         <li><a href="checkout.html">Checkout</a></li>
                                                         <li><a href="my-account.html">my account</a></li>
@@ -476,7 +476,7 @@
                                 <ul class="dropdown_links">
                                     <li><a href="checkout.html">Checkout </a></li>
                                     <li><a href="my-account.html">My Account </a></li>
-                                    <li><a href="{{ route('cart.show') }}">Shopping Cart</a></li>
+                                    <li><a href="#">Shopping Cart</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                 </ul>
                             </li>
@@ -521,7 +521,7 @@
                     <div id="menu" class="text-left ">
                         <ul class="offcanvas_main_menu">
                             <li class="menu-item-has-children">
-                                <a href="#">Home</a>
+                                <a href="{{route('home')}}">Trang chủ</a>
 
                             </li>
                             <li class="menu-item-has-children">
@@ -541,7 +541,7 @@
                                     <li class="menu-item-has-children">
                                         <a href="#">other Pages</a>
                                         <ul class="sub-menu">
-                                            <li><a href="{{ route('cart.show') }}">cart</a></li>
+                                            <li><a href="#">cart</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="my-account.html">my account</a></li>

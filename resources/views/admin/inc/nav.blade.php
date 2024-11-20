@@ -19,7 +19,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a
         >
@@ -50,7 +50,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý sản phẩm</h6>
                 <a class="collapse-item" href="buttons.html">Danh sách sản phẩm</a>
-                <a class="collapse-item" href="cards.html">Thêm sản phẩm</a>
+                <a class="collapse-item" href="{{route('admin.products.create')}}">Thêm sản phẩm</a>
             </div>
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý danh mục</h6>

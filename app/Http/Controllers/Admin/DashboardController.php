@@ -11,8 +11,4 @@ class DashboardController extends Controller
     {
         return view("admin.pages.dashboard");
     }
-
-    public function createProduct(){
-        return view("admin.product.createProduct");
-    }
 }
