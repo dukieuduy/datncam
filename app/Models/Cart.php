@@ -8,8 +8,19 @@ class Cart extends Model
 {
     protected $fillable = ['user_id'];
 
-    public function items()
+    // public function items()
+    // {
+    //     return $this->hasMany(CartItem::class);
+    // }
+        public function cartItems()
     {
         return $this->hasMany(CartItem::class);
     }
+    public function totalAmount()
+    {
+        return $this->cartItems->sum(function ($item) {
+            return $item->price * $item->quantity;
+        });
+    }
+
 }
