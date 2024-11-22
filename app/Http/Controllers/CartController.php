@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
-use GuzzleHttp\Promise\Create;
 use App\Models\ProductVariation;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Models\ProductAttributeValue;
 use Illuminate\Support\Facades\Session;
 use App\Models\ProductVariationAttribute;
@@ -143,31 +141,11 @@ class CartController extends Controller
 
     public function index()
     {
-        $cart = Cart::where('user_id', Auth::id())->first();
-        $cartItems = $cart ? $cart->cartItems : []; // Lấy danh sách sản phẩm từ giỏ hàng
-        // dd($cartItems);
-        $totalAmount = $cartItems->sum(function ($item) {
-            return $item->price * $item->quantity;  // Tính tổng tiền cho từng sản phẩm
-        });
-        // dd($cartItems,$totalAmount);
-        
-        return view('client.pages.cart.index', compact('cartItems','totalAmount'));
-        // return view('client.pages.cart.index');
-
+        return view('client.pages.cart.index');
     }
 
     public function add(Request $request)
     {
-        if (!Auth::check()) {
-            $request->session()->put('url.intended', url()->previous());
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.');
-        }
-        // Lấy thông tin người dùng
-        $userId = Auth::id();
-
-        // Kiểm tra giỏ hàng của người dùng
-        $cart = Cart::firstOrCreate(['user_id' => $userId]);
-
         $productId = $request->product_id;
         $selectedSize = $request->selectedSize;
         $selectedColor = $request->selectedColor;
@@ -205,20 +183,7 @@ class CartController extends Controller
             // Bước 5: Lấy ảnh và giá của biến thể
             $image = $matchedVariation->image;
             $price = $matchedVariation->price;
-            // dd($request->selectedColor,$request->selectedSize,$request->quantity,$request->product_name,$request->id,$image,$price);
-            CartItem::create([
-                'cart_id'=>$cart->id,
-                'product_id' => $productId,
-                'product_name' => $request->product_name,
-                'color' => $selectedColor,
-                'size' => $selectedSize,
-                'price' => $price,
-                'image' => $image,
-                'quantity' => $request->quantity,
-                'product_variation_id' => $matchedVariation->id,
-            ]);
-            
-            return redirect()->route('cart.index')->with('success', 'Sản phẩm đã được thêm vào giỏ hàng.');
+        
         } else {
             return redirect()->back()->with('error', 'Hiện tại sản phẩm không có màu sắc và size như bạn chọn, vui lòng chọn màu sắc và size khác!');
 
