@@ -3,6 +3,11 @@
     <!--shopping cart area start -->
     <div class="shopping_cart_area mt-32">
         <div class="container">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form action="#">
                 <div class="row">
                     <div class="col-12">
@@ -11,55 +16,31 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th class="product_remove">Delete</th>
-                                            <th class="product_thumb">Image</th>
-                                            <th class="product_name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product_quantity">Quantity</th>
-                                            <th class="product_total">Total</th>
+                                            <th class="product_remove">Xóa</th>
+                                            <th class="product_thumb">Ảnh</th>
+                                            <th class="product_name">Tên sản phẩm</th>
+                                            <th class="product-price">Giá</th>
+                                            <th class="product_quantity">Số lượng</th>
+                                            <th class="product_total">Thành tiền</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($cartItems as $key)
                                         <tr>
+                                            
                                             <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
                                             </td>
                                             <td class="product_thumb"><a href="#"><img
-                                                        src="assets/img/s-product/product.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                            <td class="product-price">£65.00</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                    max="100" value="1" type="number"></td>
-                                            <td class="product_total">£130.00</td>
+                                                        src="{{ asset('storage/' . $key->image)}}" alt=""></a></td>
+                                            <td class="product_name"><a href="#">{{ $key->product_name}}</a></td>
+                                            <td class="product-price">{{ $key->price}}</td>
+                                            <td class="product_quantity"><label></label> <input min="1"
+                                                    max="100" value="{{ $key->quantity}}" type="number"></td>
+                                            <td class="product_total">{{ $key->quantity * $key->price}}vnđ</td>
 
 
                                         </tr>
-
-                                        <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                            <td class="product_thumb"><a href="#"><img
-                                                        src="assets/img/s-product/product2.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="#">Handbags justo</a></td>
-                                            <td class="product-price">£90.00</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                    max="100" value="1" type="number"></td>
-                                            <td class="product_total">£180.00</td>
-
-
-                                        </tr>
-                                        <tr>
-                                            <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                            <td class="product_thumb"><a href="#"><img
-                                                        src="assets/img/s-product/product5.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="#">Handbag elit</a></td>
-                                            <td class="product-price">£80.00</td>
-                                            <td class="product_quantity"><label>Quantity</label> <input min="1"
-                                                    max="100" value="1" type="number"></td>
-                                            <td class="product_total">£160.00</td>
-
-
-                                        </tr>
+                                        @endforeach
 
                                     </tbody>
                                 </table>
@@ -88,11 +69,11 @@
                                 <h3>Cart Totals</h3>
                                 <div class="coupon_inner">
                                     <div class="cart_subtotal">
-                                        <p>Subtotal</p>
-                                        <p class="cart_amount">£215.00</p>
+                                        <p>Tổng tiền</p>
+                                        <p class="cart_amount">{{$totalAmount}}vnđ</p>
                                     </div>
                                     <div class="cart_subtotal ">
-                                        <p>Shipping</p>
+                                        <p>Phí vận chuyển</p>
                                         <p class="cart_amount"><span>Flat Rate:</span> £255.00</p>
                                     </div>
                                     <a href="#">Calculate shipping</a>

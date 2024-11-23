@@ -10,7 +10,7 @@ class ProductVariation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_id', 'sku', 'price', 'stock_quantity', 'image'
+        'product_id', 'sku', 'price', 'stock_quantity', 'image',
     ];
 
     // Mối quan hệ với Product (biến thể thuộc về một sản phẩm)
@@ -24,5 +24,9 @@ class ProductVariation extends Model
     {
         return $this->hasMany(ProductVariationAttribute::class);
     }
+    // public function productVariationAttributes()
+    // {
+    //     return $this->hasMany(ProductVariationAttribute::class);
+    // }
 }
 
