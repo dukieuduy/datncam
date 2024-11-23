@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Auth;

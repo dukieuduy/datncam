@@ -23,6 +23,11 @@ class HomeController extends Controller
         $categories = Category::all();
 
         //Sản phẩm
+
+        //Danh mục
+        $categories = Category::all();
+
+        //Sản phẩm
         $products = Product::query()
             ->select('products.id', 'products.name')
             ->addSelect([
@@ -40,7 +45,7 @@ class HomeController extends Controller
             }])
             ->get();
         // dd($products);
-        return view('client.pages.home',compact('products','categories'));
+        return view('client.pages.home',compact('products','categories','categories'));
     }
 
     public function detailProduct($id)
