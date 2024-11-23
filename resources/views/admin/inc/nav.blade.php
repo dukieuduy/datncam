@@ -52,11 +52,13 @@
                 <a class="collapse-item" href="buttons.html">Danh sách sản phẩm</a>
                 <a class="collapse-item" href="{{route('admin.products.create')}}">Thêm sản phẩm</a>
             </div>
-            <div class="bg-white py-2 collapse-inner rounded">
+            
+             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý danh mục</h6>
-                <a class="collapse-item" href="buttons.html">Danh sách danh mục</a>
-                <a class="collapse-item" href="cards.html">Thêm danh mục</a>
+                <a class="collapse-item" href="{{route('admin.categories.index')}}">Danh sách danh mục</a>
+                <a class="collapse-item" href="{{route('admin.categories.create')}}">Thêm danh mục</a>
             </div>
+
         </div>
     </li>
 

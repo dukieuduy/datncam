@@ -9,15 +9,15 @@ use App\Http\Middleware\IsMember;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
-// use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AdminCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.sho
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth',IsAdmin::class]);
 //detail product
-Route::get('/product/{id}', [\App\Http\Controllers\HomeController::class, 'detailProduct'])->name('detail-product');
+Route::get('/product/{id}', [HomeController::class, 'detailProduct'])->name('detail-product');
 // Route::get('/create-prd', [DashboardController::class, 'createProduct'])->middleware(['auth',IsAdmin::class]);
 // Route::post('/create-prd', [DashboardController::class, 'createProduct'])->middleware(['auth',IsAdmin::class]);
 
@@ -92,6 +92,18 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 // }}
 
 
+
+
+
+//ĐỖ NHƯ NAM
+// {{
+    //admin
+    Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->group(function () {
+        //Quản lý danh mục
+        Route::resource('categories', CategoryController::class);
+    });
+
+// }}
 
 
 
@@ -138,5 +150,3 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 // Route::post('/forget-password',[UserController::class,'postForgetPassword']);
 // Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
 // Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
-
-
