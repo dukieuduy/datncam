@@ -54,7 +54,7 @@ Route::delete('/wishlist/delete/{id}', [WishlistController::class, 'destroy'])->
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth',IsAdmin::class]);
 //detail product
-Route::get('/product/{id}', [\App\Http\Controllers\HomeController::class, 'detailProduct'])->name('detail-product');
+Route::get('/product/{id}', [HomeController::class, 'detailProduct'])->name('detail-product');
 // Route::get('/create-prd', [DashboardController::class, 'createProduct'])->middleware(['auth',IsAdmin::class]);
 // Route::post('/create-prd', [DashboardController::class, 'createProduct'])->middleware(['auth',IsAdmin::class]);
 
@@ -96,3 +96,62 @@ Route::get('/momo_payment', [CheckoutController::class, 'momo_payment'])->name('
 Route::get('/momo_callback', [CheckoutController::class, 'momoCallBack'])->name('momo_callback'); // thanh toán bằng momo
 // }}
 
+
+
+
+
+//ĐỖ NHƯ NAM
+// {{
+    //admin
+    Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->group(function () {
+        //Quản lý danh mục
+        Route::resource('categories', CategoryController::class);
+    });
+
+// }}
+
+
+
+
+
+
+// admin
+// Route::group(['prefix' => 'admin'], function () {
+//     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// });
+
+
+//checkout
+// Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.index');
+// Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+
+// Route::get('/order/success', function () {
+//     return view('checkout.success');
+// })->name('order.success');
+
+
+// //mini cart
+
+
+
+
+
+
+
+
+
+
+
+// route cũ không dùng
+
+// login-logout-register-forgetpassword
+// Route::get('/login',[UserController::class,'login'])->name('login');
+// Route::post('/login',[UserController::class,'postlogin']);
+// Route::get('/register',[UserController::class,'register'])->name('register');
+// Route::post('/register',[UserController::class,'postRegister']);
+// Route::post('/logout',[UserController::class, 'logout'])->name('logout');
+// Route::get('/test-email',[UserController::class,'testEmail']);
+// Route::get('/forget-password',[UserController::class,'forgetPass'])->name('customer.forgetPass');
+// Route::post('/forget-password',[UserController::class,'postForgetPassword']);
+// Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
+// Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
