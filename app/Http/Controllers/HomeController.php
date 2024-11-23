@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartItem;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\ProductVariation;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,11 @@ class HomeController extends Controller
         // $products = Product::query()
         // ->with(['lowestVariation']) // Định nghĩa mối quan hệ lowestVariation bên dưới
         // ->get();
+
+        //Danh mục
+        $categories = Category::all();
+
+        //Sản phẩm
         $products = Product::query()
             ->select('products.id', 'products.name')
             ->addSelect([
@@ -34,7 +40,7 @@ class HomeController extends Controller
             }])
             ->get();
         // dd($products);
-        return view('client.pages.home',compact('products'));
+        return view('client.pages.home',compact('products','categories'));
     }
 
     public function detailProduct($id)

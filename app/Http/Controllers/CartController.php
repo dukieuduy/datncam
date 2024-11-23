@@ -15,10 +15,6 @@ use App\Models\ProductVariationAttribute;
 
 class CartController extends Controller
 {
-<<<<<<< HEAD
-
-=======
->>>>>>> 52dabaf24004fd6667393c2fba5444a2668f95f9
     public function index()
     {
         // Kiểm tra nếu người dùng chưa đăng nhập
@@ -48,11 +44,7 @@ class CartController extends Controller
         // Trả về view với các dữ liệu
         return view('client.pages.cart.index', compact('cartItems', 'totalAmount'));
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 52dabaf24004fd6667393c2fba5444a2668f95f9
     public function add(Request $request)
     {
         $productId = $request->product_id;
