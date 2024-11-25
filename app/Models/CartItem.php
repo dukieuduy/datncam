@@ -26,6 +26,10 @@ class CartItem extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+    public function variant()
+    {
+        return $this->hasOne(ProductVariation::class);
+    }
 
     /**
      * Quan hệ với sản phẩm (Product) nếu cần.
