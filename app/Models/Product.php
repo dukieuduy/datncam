@@ -37,4 +37,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Promotion::class, 'promotion_product');
     }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_product', 'product_id', 'discount_id');
+    }
 }
