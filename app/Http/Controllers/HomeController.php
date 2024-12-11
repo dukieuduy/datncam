@@ -13,62 +13,62 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        $products = Product::query()
-            ->select('products.id', 'products.name', 'products.category_id')
-            ->addSelect([
-                'lowest_price_variation' => ProductVariation::select('price')
-                    ->whereColumn('product_variations.product_id', 'products.id')
-                    ->orderBy('price', 'asc')
-                    ->limit(1),
-                'lowest_price_image' => ProductVariation::select('image')
-                    ->whereColumn('product_variations.product_id', 'products.id')
-                    ->orderBy('price', 'asc')
-                    ->limit(1),
-            ])
-            ->with(['variations' => function ($query) {
-                $query->orderBy('price', 'asc');
-            }, 'category']) // Lấy thông tin danh mục
-            ->get()
-            ->map(function ($product) {
-                // Lưu giá gốc của sản phẩm
-                $product->original_price = $product->lowest_price_variation;
+        public function index()
+        {
+            $products = Product::query()
+                ->select('products.id', 'products.name', 'products.category_id')
+                ->addSelect([
+                    'lowest_price_variation' => ProductVariation::select('price')
+                        ->whereColumn('product_variations.product_id', 'products.id')
+                        ->orderBy('price', 'asc')
+                        ->limit(1),
+                    'lowest_price_image' => ProductVariation::select('image')
+                        ->whereColumn('product_variations.product_id', 'products.id')
+                        ->orderBy('price', 'asc')
+                        ->limit(1),
+                ])
+                ->with(['variations' => function ($query) {
+                    $query->orderBy('price', 'asc');
+                }, 'category']) // Lấy thông tin danh mục
+                ->get()
+                ->map(function ($product) {
+                    // Lưu giá gốc của sản phẩm
+                    $product->original_price = $product->lowest_price_variation;
 
-                // Lấy khuyến mại áp dụng cho sản phẩm
-                $promotion = Promotion::where(function ($query) use ($product) {
-                    $query->where('type', 'all_products') // Khuyến mãi toàn bộ sản phẩm
-                        ->orWhere(function ($subQuery) use ($product) {
-                            // Khuyến mãi theo danh mục
-                            $subQuery->where('type', 'category')
-                                ->whereHas('categories', function ($catQuery) use ($product) {
-                                    $catQuery->where('categories.id', $product->category_id);
-                                });
-                        })
-                        ->orWhere(function ($subQuery) use ($product) {
-                            // Khuyến mãi cho sản phẩm cụ thể
-                            $subQuery->where('type', 'product')
-                                ->whereHas('products', function ($prodQuery) use ($product) {
-                                    $prodQuery->where('products.id', $product->id);
-                                });
-                        });
-                })
-                    ->where('status', true)
-                    ->whereDate('start_date', '<=', now())
-                    ->whereDate('end_date', '>=', now())
-                    ->first();
+                    // Lấy khuyến mại áp dụng cho sản phẩm
+                    $promotion = Promotion::where(function ($query) use ($product) {
+                        $query->where('type', 'all_products') // Khuyến mãi toàn bộ sản phẩm
+                            ->orWhere(function ($subQuery) use ($product) {
+                                // Khuyến mãi theo danh mục
+                                $subQuery->where('type', 'category')
+                                    ->whereHas('categories', function ($catQuery) use ($product) {
+                                        $catQuery->where('categories.id', $product->category_id);
+                                    });
+                            })
+                            ->orWhere(function ($subQuery) use ($product) {
+                                // Khuyến mãi cho sản phẩm cụ thể
+                                $subQuery->where('type', 'product')
+                                    ->whereHas('products', function ($prodQuery) use ($product) {
+                                        $prodQuery->where('products.id', $product->id);
+                                    });
+                            });
+                    })
+                        ->where('status', true)
+                        ->where('start_date', '<=', now())
+                        ->where('end_date', '>=', now())
+                        ->first();
 
-                // Áp dụng giảm giá nếu có khuyến mại
-                if ($promotion) {
-                    $product->lowest_price_variation *= (1 - $promotion->discount_percentage / 100);
-                    $product->promotion = $promotion; // Lưu thông tin khuyến mại vào sản phẩm
-                }
+                    // Áp dụng giảm giá nếu có khuyến mại
+                    if ($promotion) {
+                        $product->lowest_price_variation *= (1 - $promotion->discount_percentage / 100);
+                        $product->promotion = $promotion; // Lưu thông tin khuyến mại vào sản phẩm
+                    }
 
-                return $product;
-            });
+                    return $product;
+                });
 
-        return view('client.pages.home', compact('products'));
-    }
+            return view('client.pages.home', compact('products'));
+        }
 
 
 
@@ -110,8 +110,8 @@ class HomeController extends Controller
                 });
         })
             ->where('status', true)
-            ->whereDate('start_date', '<=', now())
-            ->whereDate('end_date', '>=', now())
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
             ->first();
 
         // Tính giá giảm giá

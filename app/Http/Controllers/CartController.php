@@ -49,8 +49,8 @@ class CartController extends Controller
                 });
         })
         ->where('promotions.status', true)
-        ->whereDate('promotions.start_date', '<=', now())
-        ->whereDate('promotions.end_date', '>=', now())
+        ->where('promotions.start_date', '<=', now())
+        ->where('promotions.end_date', '>=', now())
         ->first();
 
         // Nếu có khuyến mãi, tính giá sau khuyến mãi
@@ -135,8 +135,8 @@ class CartController extends Controller
                 });
         })
             ->where('promotions.status', true) // Chỉ định rõ bảng
-            ->whereDate('promotions.start_date', '<=', now())
-            ->whereDate('promotions.end_date', '>=', now())
+            ->where('promotions.start_date', '<=', now())
+            ->where('promotions.end_date', '>=', now())
             ->first();
 
 

@@ -27,54 +27,62 @@ class PromotionController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    // Khai báo promotionId để xử lý trường hợp update
+    $promotionId = $promotion->id ?? null;
 
-        $request->validate([
-            'title' => 'required|string|max:255|unique:promotions,title,',
-            'type' => 'required|in:product,category,all_products,variant',
-            'discount_percentage' => 'required|numeric|min:1|max:100',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-        ], [
-            'title.required' => 'Tiêu đề là bắt buộc.',
-            'title.string' => 'Tiêu đề phải là một chuỗi văn bản.',
-            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
-            'title.unique' => 'Tiêu đề đã tồn tại, vui lòng chọn tiêu đề khác.',
+    $request->validate([
+        'title' => 'required|string|max:255|unique:promotions,title,' . $promotionId,
+        'type' => 'required|in:product,category,all_products,variant',
+        'discount_percentage' => 'required|numeric|min:1|max:100',
+        'start_date' => 'required|date|after_or_equal:' . \Carbon\Carbon::now()->toDateTimeString(),
+        'end_date' => 'required|date|after:start_date',
+    ], [
+        'title.required' => 'Tiêu đề là bắt buộc.',
+        'title.string' => 'Tiêu đề phải là một chuỗi văn bản.',
+        'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+        'title.unique' => 'Tiêu đề đã tồn tại, vui lòng chọn tiêu đề khác.',
+        'type.required' => 'Loại khuyến mãi là bắt buộc.',
+        'type.in' => 'Loại khuyến mãi phải là một trong các giá trị: sản phẩm, danh mục, tất cả sản phẩm, biến thể sản phẩm.',
+        'discount_percentage.required' => 'Phần trăm giảm giá là bắt buộc.',
+        'discount_percentage.numeric' => 'Phần trăm giảm giá phải là một số.',
+        'discount_percentage.min' => 'Phần trăm giảm giá phải lớn hơn hoặc bằng 1.',
+        'discount_percentage.max' => 'Phần trăm giảm giá không được vượt quá 100.',
+        'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
+        'start_date.date' => 'Ngày bắt đầu không hợp lệ.',
+        'start_date.after_or_equal' => 'Ngày bắt đầu phải không được nhỏ hơn thời điểm hiện tại.',
+        'end_date.required' => 'Ngày kết thúc là bắt buộc.',
+        'end_date.date' => 'Ngày kết thúc không hợp lệ.',
+        'end_date.after' => 'Ngày kết thúc phải sau ngày bắt đầu.',
+    ]);
 
-            'type.required' => 'Loại khuyến mãi là bắt buộc.',
-            'type.in' => 'Loại khuyến mãi phải là một trong các giá trị: sản phẩm, danh mục, tất cả sản phẩm, biến thể sản phẩm.',
+    // Tạo khuyến mãi mới
+    $promotion = Promotion::create($request->all());
 
-            'discount_percentage.required' => 'Phần trăm giảm giá là bắt buộc.',
-            'discount_percentage.numeric' => 'Phần trăm giảm giá phải là một số.',
-            'discount_percentage.min' => 'Phần trăm giảm giá phải lớn hơn hoặc bằng 1.',
-            'discount_percentage.max' => 'Phần trăm giảm giá không được vượt quá 100.',
-
-            'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
-            'start_date.date' => 'Ngày bắt đầu không hợp lệ.',
-
-            'end_date.required' => 'Ngày kết thúc là bắt buộc.',
-            'end_date.date' => 'Ngày kết thúc không hợp lệ.',
-            'end_date.after' => 'Ngày kết thúc phải sau ngày bắt đầu.',
-        ]);
-
-
-        // Tạo khuyến mãi mới
-        $promotion = Promotion::create($request->all());
-
-        // Lưu các thông tin liên quan (Sản phẩm, Danh mục, Biến thể)
-        if ($request->type == 'product') {
+    // Lưu các thông tin liên quan (Sản phẩm, Danh mục, Biến thể)
+    if ($request->type == 'product') {
+        if ($request->has('products')) {
             $promotion->products()->sync($request->products);
-        } elseif ($request->type == 'category') {
+        }
+    } elseif ($request->type == 'category') {
+        if ($request->has('categories')) {
             $promotion->categories()->sync($request->categories);
-        } elseif ($request->type == 'variant') {
+        }
+    } elseif ($request->type == 'variant') {
+        if ($request->has('variants')) {
             $promotion->variants()->sync($request->variants);
         }
-
-        $promotion->save();
-
-        return redirect()->route('admin.promotions.index')
-            ->with('success', 'Thêm mã khuyến mãi thành công!');
     }
+
+    // Đảm bảo lưu khuyến mãi sau khi đồng bộ thông tin liên quan
+    $promotion->save();
+
+    return redirect()->route('admin.promotions.index')
+        ->with('success', 'Thêm mã khuyến mãi thành công!');
+}
+
+
+
 
     public function edit($id)
     {
@@ -102,23 +110,18 @@ class PromotionController extends Controller
             'title.string' => 'Tiêu đề phải là một chuỗi văn bản.',
             'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
             'title.unique' => 'Tiêu đề đã tồn tại, vui lòng chọn tiêu đề khác.',
-
             'type.required' => 'Loại khuyến mãi là bắt buộc.',
             'type.in' => 'Loại khuyến mãi phải là một trong các giá trị: sản phẩm, danh mục, tất cả sản phẩm, biến thể sản phẩm.',
-
             'discount_percentage.required' => 'Phần trăm giảm giá là bắt buộc.',
             'discount_percentage.numeric' => 'Phần trăm giảm giá phải là một số.',
             'discount_percentage.min' => 'Phần trăm giảm giá phải lớn hơn hoặc bằng 1.',
             'discount_percentage.max' => 'Phần trăm giảm giá không được vượt quá 100.',
-
             'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
             'start_date.date' => 'Ngày bắt đầu không hợp lệ.',
-
             'end_date.required' => 'Ngày kết thúc là bắt buộc.',
             'end_date.date' => 'Ngày kết thúc không hợp lệ.',
             'end_date.after' => 'Ngày kết thúc phải sau ngày bắt đầu.',
         ]);
-
 
         // Cập nhật chương trình khuyến mãi
         $promotion->update($request->all());
@@ -131,7 +134,6 @@ class PromotionController extends Controller
         }
 
         // Cập nhật trạng thái khuyến mãi (Nếu có)
-        $promotion->status = $request->status;
         $promotion->save();
 
         return redirect()->route('admin.promotions.index')
