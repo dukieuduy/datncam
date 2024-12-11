@@ -4,11 +4,13 @@
     <div class="container-fluid">
         <h1 class="text-center">Danh Sách Khuyến Mãi</h1>
 
+        <!-- Hiển thị thông báo thành công -->
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
+
 
         <a href="{{ route('admin.promotions.create') }}" class="btn btn-success mb-3">Tạo Khuyến Mãi Mới</a>
 
@@ -52,8 +54,8 @@
                         <!-- Làm tròn số phần trăm và loại bỏ phần .00 -->
                         <td>{{ round($promotion->discount_percentage) }}%</td>
 
-                        <td>{{ \Carbon\Carbon::parse($promotion->start_date)->format('d/m/Y') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($promotion->end_date)->format('d/m/Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($promotion->start_date)->format('d/m/Y H:i') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($promotion->end_date)->format('d/m/Y H:i') }}</td>
 
                         <td>
                             <span class="badge {{ $promotion->status ? 'bg-success' : 'bg-danger' }}">

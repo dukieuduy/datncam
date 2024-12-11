@@ -28,13 +28,35 @@ class PromotionController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
-            'title' => 'required|string|max:255|unique:promotions,title',
+            'title' => 'required|string|max:255|unique:promotions,title,',
             'type' => 'required|in:product,category,all_products,variant',
-            'discount_percentage' => 'required|numeric|min:0|max:100',
+            'discount_percentage' => 'required|numeric|min:1|max:100',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
+        ], [
+            'title.required' => 'Tiêu đề là bắt buộc.',
+            'title.string' => 'Tiêu đề phải là một chuỗi văn bản.',
+            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+            'title.unique' => 'Tiêu đề đã tồn tại, vui lòng chọn tiêu đề khác.',
+
+            'type.required' => 'Loại khuyến mãi là bắt buộc.',
+            'type.in' => 'Loại khuyến mãi phải là một trong các giá trị: sản phẩm, danh mục, tất cả sản phẩm, biến thể sản phẩm.',
+
+            'discount_percentage.required' => 'Phần trăm giảm giá là bắt buộc.',
+            'discount_percentage.numeric' => 'Phần trăm giảm giá phải là một số.',
+            'discount_percentage.min' => 'Phần trăm giảm giá phải lớn hơn hoặc bằng 1.',
+            'discount_percentage.max' => 'Phần trăm giảm giá không được vượt quá 100.',
+
+            'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
+            'start_date.date' => 'Ngày bắt đầu không hợp lệ.',
+
+            'end_date.required' => 'Ngày kết thúc là bắt buộc.',
+            'end_date.date' => 'Ngày kết thúc không hợp lệ.',
+            'end_date.after' => 'Ngày kết thúc phải sau ngày bắt đầu.',
         ]);
+
 
         // Tạo khuyến mãi mới
         $promotion = Promotion::create($request->all());
@@ -42,10 +64,6 @@ class PromotionController extends Controller
         // Lưu các thông tin liên quan (Sản phẩm, Danh mục, Biến thể)
         if ($request->type == 'product') {
             $promotion->products()->sync($request->products);
-            // Lấy mức giảm giá cao nhất trong các sản phẩm
-            $highest_discount = Product::whereIn('id', $request->products)
-                ->max('discount_percentage');
-            $promotion->discount_percentage = $highest_discount;
         } elseif ($request->type == 'category') {
             $promotion->categories()->sync($request->categories);
         } elseif ($request->type == 'variant') {
@@ -68,6 +86,7 @@ class PromotionController extends Controller
         return view('admin.promotions.edit', compact('promotion', 'products', 'categories', 'variants'));
     }
 
+
     public function update(Request $request, $id)
     {
         $promotion = Promotion::findOrFail($id);
@@ -75,10 +94,31 @@ class PromotionController extends Controller
         $request->validate([
             'title' => 'required|string|max:255|unique:promotions,title,' . $promotion->id,
             'type' => 'required|in:product,category,all_products,variant',
-            'discount_percentage' => 'required|numeric|min:0|max:100',
+            'discount_percentage' => 'required|numeric|min:1|max:100',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
+        ], [
+            'title.required' => 'Tiêu đề là bắt buộc.',
+            'title.string' => 'Tiêu đề phải là một chuỗi văn bản.',
+            'title.max' => 'Tiêu đề không được vượt quá 255 ký tự.',
+            'title.unique' => 'Tiêu đề đã tồn tại, vui lòng chọn tiêu đề khác.',
+
+            'type.required' => 'Loại khuyến mãi là bắt buộc.',
+            'type.in' => 'Loại khuyến mãi phải là một trong các giá trị: sản phẩm, danh mục, tất cả sản phẩm, biến thể sản phẩm.',
+
+            'discount_percentage.required' => 'Phần trăm giảm giá là bắt buộc.',
+            'discount_percentage.numeric' => 'Phần trăm giảm giá phải là một số.',
+            'discount_percentage.min' => 'Phần trăm giảm giá phải lớn hơn hoặc bằng 1.',
+            'discount_percentage.max' => 'Phần trăm giảm giá không được vượt quá 100.',
+
+            'start_date.required' => 'Ngày bắt đầu là bắt buộc.',
+            'start_date.date' => 'Ngày bắt đầu không hợp lệ.',
+
+            'end_date.required' => 'Ngày kết thúc là bắt buộc.',
+            'end_date.date' => 'Ngày kết thúc không hợp lệ.',
+            'end_date.after' => 'Ngày kết thúc phải sau ngày bắt đầu.',
         ]);
+
 
         // Cập nhật chương trình khuyến mãi
         $promotion->update($request->all());
@@ -88,12 +128,10 @@ class PromotionController extends Controller
             $promotion->products()->sync($request->products);
         } elseif ($request->type == 'category') {
             $promotion->categories()->sync($request->categories);
-        } elseif ($request->type == 'variant') {
-            $promotion->variants()->sync($request->variants);
         }
 
         // Cập nhật trạng thái khuyến mãi (Nếu có)
-        $promotion->status = $request->status; // Giả sử bạn có trường `status` trong bảng promotion
+        $promotion->status = $request->status;
         $promotion->save();
 
         return redirect()->route('admin.promotions.index')
