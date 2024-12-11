@@ -18,6 +18,7 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PromotionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +69,7 @@ Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.sho
 // KIỀU DUY DU
 // {{
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth',IsAdmin::class]);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', IsAdmin::class]);
 //detail product
 Route::get('/product/{id}', [\App\Http\Controllers\HomeController::class, 'detailProduct'])->name('detail-product');
 // Route::get('/create-prd', [DashboardController::class, 'createProduct'])->middleware(['auth',IsAdmin::class]);
@@ -80,6 +81,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->gr
     Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('products/{product}/update', [ProductController::class, 'update'])->name('products.update');
+
+
+    //khuyến mãi
+    Route::get('promotions', [PromotionController::class, 'index'])->name('promotions.index');
+    Route::get('promotions/create', [PromotionController::class, 'create'])->name('promotions.create');
+    Route::post('promotions/store', [PromotionController::class, 'store'])->name('promotions.store');
+    Route::get('promotions/{promotion}/edit', [PromotionController::class, 'edit'])->name('promotions.edit');
+    Route::put('promotions/{promotion}/update', [PromotionController::class, 'update'])->name('promotions.update');
+    Route::delete('promotions/{promotion}/destroy', [PromotionController::class, 'destroy'])->name('promotions.destroy');
 });
 // Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Auth::routes();
@@ -138,5 +148,3 @@ Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remov
 // Route::post('/forget-password',[UserController::class,'postForgetPassword']);
 // Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
 // Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
-
-

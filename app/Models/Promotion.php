@@ -32,4 +32,6 @@ class Promotion extends Model
     {
         return $this->belongsToMany(ProductVariation::class, 'promotion_variant');
     }
+
+
 }

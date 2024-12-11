@@ -10,23 +10,31 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'stock_quantity', 
-        'category_id', 'is_active'
+        'name',
+        'description',
+        'stock_quantity',
+        'category_id',
+        'is_active'
     ];
 
-        // Mối quan hệ với ProductVariation (một sản phẩm có nhiều biến thể)
-        public function variations()
-        {
-            return $this->hasMany(ProductVariation::class);
-        }
-        public function category()
+    // Mối quan hệ với ProductVariation (một sản phẩm có nhiều biến thể)
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
-        public function lowestVariation()
-        {
-            return $this->hasOne(ProductVariation::class)
-                ->select('id', 'product_id', 'price', 'image')
-                ->orderBy('price', 'asc'); // Lấy biến thể có giá thấp nhất
-        }
+    public function lowestVariation()
+    {
+        return $this->hasOne(ProductVariation::class)
+            ->select('id', 'product_id', 'price', 'image')
+            ->orderBy('price', 'asc'); // Lấy biến thể có giá thấp nhất
+    }
+
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class, 'promotion_product');
+    }
 }
