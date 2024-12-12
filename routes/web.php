@@ -18,6 +18,7 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\PromotionController;
 
 /*
@@ -90,6 +91,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->gr
     Route::get('promotions/{promotion}/edit', [PromotionController::class, 'edit'])->name('promotions.edit');
     Route::put('promotions/{promotion}/update', [PromotionController::class, 'update'])->name('promotions.update');
     Route::delete('promotions/{promotion}/destroy', [PromotionController::class, 'destroy'])->name('promotions.destroy');
+
+    // Giảm giá
+    Route::get('discounts', [DiscountController::class, 'index'])->name('discounts.index');
+    Route::get('discounts/create', [DiscountController::class, 'create'])->name('discounts.create');
+    Route::post('discounts/store', [DiscountController::class, 'store'])->name('discounts.store');
+    Route::get('discounts/{discount}/edit', [DiscountController::class, 'edit'])->name('discounts.edit');
+    Route::put('discounts/{discount}/update', [DiscountController::class, 'update'])->name('discounts.update');
+    Route::delete('discounts/{discount}/destroy', [DiscountController::class, 'destroy'])->name('discounts.destroy');
+    Route::get('discounts/{discount}', [DiscountController::class, 'show'])->name('discounts.show');
 });
 // Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Auth::routes();

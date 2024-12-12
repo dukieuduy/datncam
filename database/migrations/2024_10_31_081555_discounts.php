@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('usage_per_user')->nullable(); // Giới hạn cho mỗi user
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->enum('discount_scope', ['all', 'product', 'category', 'user'])->default('all');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
