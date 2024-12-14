@@ -134,6 +134,7 @@
                         </div>
                         <!-- Coupon Code Area End -->
                     </div>
+                    <!-- Coupon Code Area End -->
                 </div>
             </form>
         </div>
