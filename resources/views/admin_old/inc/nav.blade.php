@@ -57,6 +57,9 @@
                 <a class="collapse-item" href="buttons.html">Danh sách danh mục</a>
                 <a class="collapse-item" href="cards.html">Thêm danh mục</a>
             </div>
+
+            <div class="bg-white py-2 collapse-inner rounded"> <h6 class="collapse-header">Quản lý khuyến mại</h6> <a class="collapse-item" href="buttons.html">Danh sách khuyến mại</a> <a class="collapse-item" href="cards.html">Thêm khuyến mại</a> </div>
+
         </div>
     </li>
 

@@ -16,4 +16,14 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class, 'promotion_category');
+    }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_category', 'category_id', 'discount_id');
+    }
 }
