@@ -49,7 +49,7 @@
         >
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý sản phẩm</h6>
-                <a class="collapse-item" href="buttons.html">Danh sách sản phẩm</a>
+                <a class="collapse-item" href="{{route('admin.products.index')}}">Danh sách sản phẩm</a>
                 <a class="collapse-item" href="{{route('admin.products.create')}}">Thêm sản phẩm</a>
             </div>
             <div class="bg-white py-2 collapse-inner rounded">

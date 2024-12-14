@@ -80,6 +80,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->gr
     Route::post('products/store', [ProductController::class, 'store'])->name('products.store');
     Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('products/{product}/update', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.delete');
+
+     //  cập nhật trạng thái sản phẩm
+    Route::post('products/{id}/update-status', [ProductController::class, 'updateStatus'])->name('products.updateStatus');
+    // thêm mới biến thể sản phẩm
+    Route::post('/product/{productId}/variations', [ProductController::class, 'storeVariation']);
+
+
 });
 // Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Auth::routes();

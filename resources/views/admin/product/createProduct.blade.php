@@ -71,7 +71,8 @@
 
         <!-- Biến thể sản phẩm -->
         <h3>Biến Thể Sản Phẩm</h3>
-        <div id="variations">
+
+        <div id="variations" class="border" style="padding: 10px">
             <div class="variation">
                 <div class="form-group">
                     <label for="variation_price">Giá Biến Thể</label>
@@ -89,6 +90,16 @@
                 </div>
 
                 <!-- Thuộc tính của biến thể -->
+                <!-- Color -->
+                 <div class="form-group">
+                     <label>Color</label>
+                     <select name="variations[0][attributes][color]" class="form-control attribute-select color-select" data-type="color">
+                         <option value="">Chọn màu</option>
+                         @foreach ($colorValues as $color)
+                             <option value="{{ $color->id }}">{{ $color->value }}</option> <!-- Use color ID here -->
+                         @endforeach
+                     </select>
+                 </div>
                 <!-- Size -->
                 <div class="form-group">
                     <label>Size</label>
@@ -101,16 +112,7 @@
                     </select>
                 </div>
 
-                <!-- Color -->
-                <div class="form-group">
-                    <label>Color</label>
-                    <select name="variations[0][attributes][color]" class="form-control attribute-select color-select" data-type="color">
-                        <option value="">Chọn màu</option>
-                        @foreach ($colorValues as $color)
-                            <option value="{{ $color->id }}">{{ $color->value }}</option> <!-- Use color ID here -->
-                        @endforeach
-                    </select>
-                </div>
+
 
             </div>
         </div>
@@ -124,7 +126,7 @@
     </form>
 </div>
 
-<script>
+{{-- <script>
     let selectedCombinations = [];
 
     // Khóa các tùy chọn đã được chọn trong các dropdown
@@ -147,6 +149,68 @@
             if (sizeSelect && colorSelect) {
                 colorSelect.querySelectorAll('option').forEach(option => {
                     const combination = `${sizeSelect.value}-${option.value}`;
+                    option.disabled = selectedCombinations.includes(combination);
+                });
+            }
+        });
+    }
+
+    // Thêm biến thể mới
+    document.getElementById('addVariation').addEventListener('click', () => {
+        const newVariation = document.querySelector('.variation').outerHTML.replace(/\[0\]/g, `[${Date.now()}]`);
+        document.getElementById('variations').insertAdjacentHTML('beforeend', newVariation);
+        updateDisabledOptions();
+    });
+
+    // Xóa biến thể gần nhất
+    document.getElementById('removeVariation').addEventListener('click', () => {
+        const variations = document.querySelectorAll('.variation');
+        if (variations.length > 1) {
+            variations[variations.length - 1].remove();
+            updateDisabledOptions();
+        }
+    });
+
+    // Lắng nghe sự thay đổi trong các dropdown
+    document.addEventListener('change', (e) => {
+        if (e.target.classList.contains('attribute-select')) {
+            updateDisabledOptions();
+        }
+    });
+
+    // Khởi tạo
+    updateDisabledOptions();
+</script> --}}
+<script>
+    let selectedCombinations = [];
+
+    // Khóa các tùy chọn đã được chọn trong các dropdown
+    function updateDisabledOptions() {
+        selectedCombinations = [];
+
+        // Lấy tất cả các variation đã chọn
+        document.querySelectorAll('.variation').forEach(variation => {
+            const size = variation.querySelector('.size-select').value;
+            const color = variation.querySelector('.color-select').value;
+
+            if (size && color) {
+                selectedCombinations.push(`${size}-${color}`);
+            }
+        });
+
+        // Cập nhật các tùy chọn bị khóa
+        document.querySelectorAll('.variation').forEach(variation => {
+            const sizeSelect = variation.querySelector('.size-select');
+            const colorSelect = variation.querySelector('.color-select');
+
+            if (sizeSelect && colorSelect) {
+                colorSelect.querySelectorAll('option').forEach(option => {
+                    const combination = `${sizeSelect.value}-${option.value}`;
+                    option.disabled = selectedCombinations.includes(combination);
+                });
+
+                sizeSelect.querySelectorAll('option').forEach(option => {
+                    const combination = `${option.value}-${colorSelect.value}`;
                     option.disabled = selectedCombinations.includes(combination);
                 });
             }
