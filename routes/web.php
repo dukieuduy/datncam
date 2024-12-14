@@ -33,10 +33,6 @@ use Illuminate\Support\Facades\Route;
 //home
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
 // Route::delete('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 
 // Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
