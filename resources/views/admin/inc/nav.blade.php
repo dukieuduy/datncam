@@ -71,7 +71,7 @@
             aria-controls="collapseUtilities"
         >
             <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+            <span>Khuyến mãi</span>
         </a>
         <div
             id="collapseUtilities"
@@ -80,13 +80,9 @@
             data-parent="#accordionSidebar"
         >
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html"
-                >Animations</a
-                >
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+                <h6 class="collapse-header">Quản lý khuyến mãi:</h6>
+                <a class="collapse-item" href="{{ route('admin.discounts.index') }}">Danh sách mã giảm giá</a>
+                <a class="collapse-item" href="{{ route("admin.discounts.create") }}">Thêm mã giảm giá</a>
             </div>
         </div>
     </li>

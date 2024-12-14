@@ -88,27 +88,21 @@
                                             <span style="margin-left: 10px;">Mã giảm giá</span>
                                         </div>
                                         <div class="card-body">
-                                            Nhập mã giảm giá của bạn:
+{{--                                            Nhập mã giảm giá của bạn:--}}
 
-                                            <!-- Input cho mã giảm giá dạng văn bản -->
-                                            <input type="text" class="form-control mb-3" placeholder="Mã giảm giá"
-                                                   style="font-size: 18px;">
+{{--                                            <!-- Input cho mã giảm giá dạng văn bản -->--}}
+{{--                                            <input type="text" class="form-control mb-3" placeholder="Mã giảm giá"--}}
+{{--                                                   style="font-size: 18px;">--}}
 
                                             <!-- Thêm dòng mã giảm giá với các option -->
-                                            <label for="discount-options">Mã giảm giá đã lưu:</label>
+                                            <label for="discount-options">Mã giảm giá:</label>
                                             <select id="discount-options" class="form-control mb-3"
                                                     style="font-size: 17px;">
-                                                <option value="">Chọn mã giảm giá</option>
-                                                <option value="DISCOUNT10">DISCOUNT10 - Giảm 10%</option>
-                                                <option value="DISCOUNT20">DISCOUNT20 - Giảm 20%</option>
-                                                <option value="DISCOUNT30">DISCOUNT30 - Giảm 30%</option>
+                                                <option value="0">Chọn mã giảm giá</option>
+                                                @foreach($discounts as $discount)
+                                                    <option value="{{$discount->id}}" >{{$discount->code}} - giảm {{ number_format($discount->percentage) }}%</option>
+                                                @endforeach
                                             </select>
-
-                                            <!-- Button Áp dụng -->
-                                            <button type="submit" class="btn text-white" style="background-color: #00CC99;">
-                                                Áp
-                                                dụng
-                                            </button>
                                         </div>
 
                                     </div>
@@ -186,12 +180,17 @@
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-0">Tổng tiền:</p>
                                                 <p class="mb-0 fw-bold cart_amount total">{{ number_format($totalAmount, 0, ',',
-                                            '.') }}đ</p>
+                                            '.') }} đ</p>
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-0">Phí vận chuyển:</p>
-                                                <p class="mb-0 fw-bold shipping-fee" data-shipping="55000">55,000đ</p>
+                                                <p class="mb-0 fw-bold shipping-fee" data-shipping="55000">55,000 đ</p>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between">
+                                                <p class="mb-0">Mã giảm giá:</p>
+                                                <p class="mb-0 fw-bold" id="discount_total">0 đ</p>
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between">
