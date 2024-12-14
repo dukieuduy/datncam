@@ -1,8 +1,30 @@
 $(document).ready(function () {
+    $('#discount-options').on('change', function() {
+        var selectedOptionValue = $(this).val();
+
+        $.ajax({
+            url: '/get-data-discount/' + selectedOptionValue,
+            method: 'GET',
+            success: function(response) {
+                let total = parseFloat($('.total-amount').text());
+                let totalAfterApplyDiscount = total - (total * response.data.percentage / 100)
+                $('.total-amount').text(totalAfterApplyDiscount)
+                alert(`Áp mã giảm giá thành công, giảm ${total * response.data.percentage / 100} vnđ`)
+                $('#discount_total').text(total * response.data.percentage / 100 + ' đ')
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+
     $('#checkout').on('click', function () {
         let address = $('input[name="address"]:checked').val();
         let paymentMethod = $('input[name="payment_method"]:checked').val();
         let totalAmount = $('.total-amount').text();
+        let discount = $('#discount-options').val();
+        let discount_total = $('#discount_total').text().replace(' đ', '');;
         let products = [];
 
         $('.cart_item_id').each(function(index) {
@@ -12,11 +34,9 @@ $(document).ready(function () {
                 price: $('.price').eq(index).text().trim(),
                 subtotal: $('.subtotal').eq(index).text().trim()
             };
-
-            products.push(product);
+            products.push(product)
         });
 
-        console.log(products)
 
         $('#error_address').text('');
         $('#error_payment').text('');
@@ -43,10 +63,10 @@ $(document).ready(function () {
                 shipping_address: address,
                 payment_method: paymentMethod,
                 total_amount: totalAmount,
-                products: products
+                products: products,
+                discount : discount,
+                discount_total : discount_total
             };
-
-            console.log(data);
 
             $.ajax({
                 url: $('#checkout').attr('data-url'),
