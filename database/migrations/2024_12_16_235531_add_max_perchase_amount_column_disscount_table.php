@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotion_category', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('promotion_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('discounts', function (Blueprint $table) {
+            $table->decimal('max_purchase_amount', 20, 2)->nullable()->after('min_purchase_amount');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('promotion_category');
+        Schema::table('discounts', function (Blueprint $table) {
+            $table->dropColumn('max_purchase_amount');
+        });
     }
 };

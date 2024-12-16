@@ -32,9 +32,10 @@
                                             <tr>
                                                 <td>
                                                     <span class="d-none cart_item_id">{{$key->id}}</span>
-                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($key->image) }}"
-                                                         class="img-thumbnail"
-                                                         style="width: 100px; height: 100px;" alt="Product">
+                                                    <img
+                                                        src="{{ \Illuminate\Support\Facades\Storage::url($key->image) }}"
+                                                        class="img-thumbnail"
+                                                        style="width: 100px; height: 100px;" alt="Product">
                                                 </td>
                                                 <td>{{ $key->product_name }}</td>
 
@@ -43,7 +44,8 @@
                                                         <!-- Dropdown cho kích cỡ -->
                                                         <div class="mb-2">
                                                             <label for="size" class="form-label mb-1">Kích cỡ</label>
-                                                            <select id="size" class="form-select form-select-sm" disabled>
+                                                            <select id="size" class="form-select form-select-sm"
+                                                                    disabled>
                                                                 <option value="">{{$key->size}}</option>
                                                                 <!-- Thêm các lựa chọn khác nếu cần -->
                                                             </select>
@@ -51,7 +53,8 @@
                                                         <!-- Dropdown cho màu sắc -->
                                                         <div>
                                                             <label for="color" class="form-label mb-1">Màu sắc</label>
-                                                            <select id="color" class="form-select form-select-sm" disabled>
+                                                            <select id="color" class="form-select form-select-sm"
+                                                                    disabled>
                                                                 <option value="">{{$key->color}}</option>
                                                                 <!-- Thêm các lựa chọn khác nếu cần -->
                                                             </select>
@@ -60,13 +63,15 @@
                                                 </td>
                                                 <td>{{ number_format($key->price, 0, ',', '.') }}đ</td>
                                                 <td>
-                                                    <input type="number" class="form-control w-50 quantity-input" disabled
+                                                    <input type="number" class="form-control w-50 quantity-input"
+                                                           disabled
                                                            value="{{ $key->quantity }}" min="1" max="100"
                                                            data-price="{{ $key->price }}" onchange="updateCart(this)">
                                                 </td>
                                                 <td class="product_total">
-                                                    <span class="d-none price">{{number_format($key->price, 0, ',', '.')}}</span>
-                                                <span class="subtotal">{{ number_format($key->quantity * $key->price, 0, ',', '.')
+                                                    <span
+                                                        class="d-none price">{{number_format($key->price, 0, ',', '.')}}</span>
+                                                    <span class="subtotal">{{ number_format($key->quantity * $key->price, 0, ',', '.')
                                                     }}</span>đ
                                                 </td>
                                             </tr>
@@ -88,11 +93,11 @@
                                             <span style="margin-left: 10px;">Mã giảm giá</span>
                                         </div>
                                         <div class="card-body">
-{{--                                            Nhập mã giảm giá của bạn:--}}
+                                            {{--                                            Nhập mã giảm giá của bạn:--}}
 
-{{--                                            <!-- Input cho mã giảm giá dạng văn bản -->--}}
-{{--                                            <input type="text" class="form-control mb-3" placeholder="Mã giảm giá"--}}
-{{--                                                   style="font-size: 18px;">--}}
+                                            {{--                                            <!-- Input cho mã giảm giá dạng văn bản -->--}}
+                                            {{--                                            <input type="text" class="form-control mb-3" placeholder="Mã giảm giá"--}}
+                                            {{--                                                   style="font-size: 18px;">--}}
 
                                             <!-- Thêm dòng mã giảm giá với các option -->
                                             <label for="discount-options">Mã giảm giá:</label>
@@ -100,8 +105,16 @@
                                                     style="font-size: 17px;">
                                                 <option value="0">Chọn mã giảm giá</option>
                                                 @foreach($discounts as $discount)
-                                                    <option value="{{$discount->id}}" >{{$discount->code}} - giảm {{ number_format($discount->percentage) }}%</option>
+                                                    <option value="{{$discount->id}}">
+                                                        {{$discount->code}} -
+                                                        giảm {{ number_format($discount->value) }} {{$discount->type == 'percentage' ? ' %' : ' vnđ'}},
+                                                        đơn tối thiểu {{ number_format($discount->min_purchase_amount) }} vnđ
+                                                        @if($discount->max_purchase_amount)
+                                                            , giảm tối đa {{ number_format($discount->max_purchase_amount) }} vnđ
+                                                        @endif
+                                                    </option>
                                                 @endforeach
+
                                             </select>
                                         </div>
 
@@ -115,17 +128,20 @@
                                         </div>
                                         <div class="card-body">
                                             <label>
-                                                <input type="radio" name="address" class="mx-2" value="Liên Chung, Tân Yên, Bắc Giang">
+                                                <input type="radio" name="address" class="mx-2"
+                                                       value="Liên Chung, Tân Yên, Bắc Giang">
                                                 Liên Chung, Tân Yên, Bắc Giang
                                             </label> <br> <br>
                                             <label>
-                                                <input type="radio" name="address" class="mx-2" value="Nguyên Xá, Bắc Từ Liêm, Hà Nội">
+                                                <input type="radio" name="address" class="mx-2"
+                                                       value="Nguyên Xá, Bắc Từ Liêm, Hà Nội">
                                                 Nguyên Xá, Bắc Từ Liêm, Hà Nội
                                             </label>
                                             <br> <br>
 
                                             <label>
-                                                <input type="radio" name="address" class="mx-2" value="68/91/5/5 Đường Cầu Giấy, Hà Nội">
+                                                <input type="radio" name="address" class="mx-2"
+                                                       value="68/91/5/5 Đường Cầu Giấy, Hà Nội">
                                                 68/91/5/5 Đường Cầu Giấy, Hà Nội
                                             </label>
                                         </div>
@@ -142,7 +158,7 @@
                                         </div>
                                         <div class="card-body mx-3">
                                             <label>
-                                                <input type="radio" name="payment_method" value="CASH" >
+                                                <input type="radio" name="payment_method" value="CASH">
                                                 <img
                                                     src="https://thumbs.dreamstime.com/b/earn-money-vector-logo-icon-design-salary-symbol-design-hand-illustrations-earn-money-vector-logo-icon-design-salary-symbol-152893719.jpg"
                                                     alt="VNPay Logo" width="50" height="50">
@@ -150,8 +166,9 @@
                                             </label> <br> <br>
                                             <label>
                                                 <input type="radio" name="payment_method" value="VNPAY" disabled>
-                                                <img src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
-                                                     alt="VNPay Logo" width="50" height="50">
+                                                <img
+                                                    src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
+                                                    alt="VNPay Logo" width="50" height="50">
                                                 Thanh toán bằng VNPay
                                             </label>
                                             <br> <br>
@@ -185,7 +202,7 @@
                                             <hr>
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-0">Phí vận chuyển:</p>
-                                                <p class="mb-0 fw-bold shipping-fee" data-shipping="55000">55,000 đ</p>
+                                                <p class="mb-0 fw-bold shipping-fee" data-shipping="55.000">55,000 đ</p>
                                             </div>
                                             <hr>
                                             <div class="d-flex justify-content-between">
@@ -196,11 +213,15 @@
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-0">Tổng cộng:</p>
                                                 <p class="mb-0 fw-bold text-success ">
-                                                    <span class="total-amount">{{ number_format($totalAmount + 55000, 0, ',', '.') }}</span> đ
+                                                    <span
+                                                        class="total-amount">{{ number_format($totalAmount + 55000, 0, ',', '.') }}</span>
+                                                    đ
                                                 </p>
                                             </div>
                                             <div class="mt-3">
-                                                <a id="checkout" data-url="{{ route('checkout') }}" class="btn text-white w-100" style="background-color: #ff6600;">Thanh toán</a>
+                                                <a id="checkout" data-url="{{ route('checkout') }}"
+                                                   class="btn text-white w-100" style="background-color: #ff6600;">Thanh
+                                                    toán</a>
                                             </div>
                                         </div>
                                     </div>
