@@ -13,7 +13,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Mã giảm giá</th>
-                    <th>Giá trị ( % )</th>
+                    <th>Loại</th>
+                    <th>Giá trị</th>
                     <th>Giá đơn hàng tối thiểu</th>
                     <th>Số lượng</th>
                     <th>Trạng thái</th>
@@ -25,7 +26,16 @@
                     <tr>
                         <td>{{ $discount->id }}</td>
                         <td>{{ $discount->code }}</td>
-                        <td>{{ $discount->percentage }}</td>
+                        <td>
+                            @if($discount->type =='shipping')
+                                Phí vận chuyển
+                            @elseif ($discount->type == 'percentage')
+                                Phần trăm
+                            @else
+                                Cố định
+                            @endif
+                        </td>
+                        <td>{{ $discount->value }}</td>
                         <td>{{ $discount->min_purchase_amount }}</td>
                         <td>{{ $discount->quantity }}</td>
                         <td>

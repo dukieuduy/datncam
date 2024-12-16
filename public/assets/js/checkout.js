@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    let originalTotal = parseFloat($('.total-amount').text().replace(/\./g, '').replace(' đ', ''));
+    let total = parseFloat($('.total').text());
+
     $('#discount-options').on('change', function() {
         var selectedOptionValue = $(this).val();
 
@@ -6,18 +9,45 @@ $(document).ready(function () {
             url: '/get-data-discount/' + selectedOptionValue,
             method: 'GET',
             success: function(response) {
-                let total = parseFloat($('.total-amount').text());
-                let totalAfterApplyDiscount = total - (total * response.data.percentage / 100)
-                $('.total-amount').text(totalAfterApplyDiscount)
-                alert(`Áp mã giảm giá thành công, giảm ${total * response.data.percentage / 100} vnđ`)
-                $('#discount_total').text(total * response.data.percentage / 100 + ' đ')
+                let minAmount = parseFloat(response.data.min_purchase_amount);
+                if (total < minAmount) {
+                    alert(`Không áp dụng cho đơn hàng có tổng tiền nhỏ hơn ${minAmount.toFixed(0)} đ`);
+                    return;
+                }
+
+                let discountAmount = 0;
+                let totalAfterApplyDiscount = originalTotal;
+
+                if (response.data.type === 'percentage') {
+                    discountAmount = originalTotal * response.data.value / 100;
+                    if (response.data.max_purchase_amount !== null) {
+                        let maxPurchaseAmount = parseFloat(response.data.max_purchase_amount.replace(/[^0-9.-]+/g, ''));
+                        if (discountAmount > maxPurchaseAmount) {
+                            discountAmount = maxPurchaseAmount
+                        }
+                    }
+                    totalAfterApplyDiscount -= discountAmount;
+                } else if (response.data.type === 'fixed') {
+                    discountAmount = parseFloat(response.data.value);
+                    totalAfterApplyDiscount -= discountAmount;
+                } else if (response.data.type === 'shipping') {
+                    let shippingFee = parseFloat($('.shipping-fee').data('shipping'));
+                    let newShippingFee = shippingFee - discountAmount;
+                    totalAfterApplyDiscount = originalTotal + newShippingFee;
+                }
+
+                totalAfterApplyDiscount = totalAfterApplyDiscount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+                $('.total-amount').text(totalAfterApplyDiscount + ' đ');
+                $('#discount_total').text(discountAmount + ' đ');
+
+                alert(`Áp mã giảm giá thành công, giảm ${discountAmount} đ`);
             },
             error: function(xhr, status, error) {
                 console.error(error);
             }
         });
     });
-
 
     $('#checkout').on('click', function () {
         let address = $('input[name="address"]:checked').val();

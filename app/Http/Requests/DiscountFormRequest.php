@@ -26,10 +26,25 @@ class DiscountFormRequest extends FormRequest
                 'required', 'string', 'max:255',
                 request()->isMethod('POST') ? 'unique:discounts,code' : 'unique:discounts,code,' . $this->route('discount')
             ],
-            'percentage' => ['required', 'numeric', 'min:0', 'max:100'],
+            'type' => ['required', 'in:percentage,fixed,shipping'],
+            'value' => [
+                'required',
+                'numeric',
+                'min:0',
+                function ($attribute, $value, $fail) {
+                    if ($this->type === 'percentage' && ($value < 0 || $value > 100)) {
+                        $fail('Giá trị chỉ được từ 0% đến 100%');
+                    }
+
+                    if ($this->type === 'fixed' && $value < 0) {
+                        $fail('Giá trị phải lớn hơn 0 vnđ');
+                    }
+                },
+            ],
             'start_date' => ['required', 'date', 'before:end_date'],
             'end_date' => ['required', 'date', 'after:start_date'],
             'min_purchase_amount' => ['required', 'numeric', 'min:0'],
+            'max_purchase_amount' => ['nullable', 'numeric', 'min:0'],
             'quantity' => ['required', 'numeric', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ];
