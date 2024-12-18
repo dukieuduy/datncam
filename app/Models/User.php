@@ -12,8 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    const TYPE_ADMIN ='admin';
-    const TYPE_MEMBER ='member';
+    const TYPE_ADMIN = 'admin';
+    const TYPE_MEMBER = 'member';
 
 
     /**
@@ -48,10 +48,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function isAdmin(){
-        return $this->type ===self::TYPE_ADMIN;
+    public function isAdmin()
+    {
+        return $this->type === self::TYPE_ADMIN;
     }
-    public function isMember(){
-        return $this->type ==self::TYPE_MEMBER;
+    public function isMember()
+    {
+        return $this->type == self::TYPE_MEMBER;
+    }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_user', 'user_id', 'discount_id');
     }
 }
