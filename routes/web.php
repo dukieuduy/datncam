@@ -38,20 +38,6 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
-// Route::delete('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
-
-// Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
-// Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
-// Route::post('/cart/update/{productId}', [CartController::class, 'updateItem'])->name('cart.update');
-// Route::delete('/cart/remove/{productId}', [CartController::class, 'removeItem'])->name('cart.remove');
-// Route::put('/cart/update/{productId}', [CartController::class, 'updateItem'])->name('cart.update');
-
-// Route::get('/hihi', [CartController::class, 'index'])->name('hihi');
-
-
-
 // // admin cart
 Route::get('/carts', [AdminCartController::class, 'index'])->name('admin.carts.index');
 Route::get('/cart/{id}', [AdminCartController::class, 'show'])->name('admin.cart.show');
@@ -84,62 +70,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->gr
 // Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
 Auth::routes();
 
-
+// Cart
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+Route::delete('/cart/remove/{cartItemId}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+// Route::post('/cart/remove-selected', [CartController::class, 'removeSelected'])->name('cart.removeSelected');
+
 
 Route::post('/confirm_checkout', [CheckoutController::class, 'confirmCheckout'])->name('confirm_checkout');
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 // }}
-
-
-
-
-
-
-
-
-// admin
-// Route::group(['prefix' => 'admin'], function () {
-//     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
-
-
-//checkout
-// Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.index');
-// Route::post('/checkout/process', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-
-// Route::get('/order/success', function () {
-//     return view('checkout.success');
-// })->name('order.success');
-
-
-// //mini cart
-
-
-
-
-
-
-
-
-
-
-
-// route cũ không dùng
-
-// login-logout-register-forgetpassword
-// Route::get('/login',[UserController::class,'login'])->name('login');
-// Route::post('/login',[UserController::class,'postlogin']);
-// Route::get('/register',[UserController::class,'register'])->name('register');
-// Route::post('/register',[UserController::class,'postRegister']);
-// Route::post('/logout',[UserController::class, 'logout'])->name('logout');
-// Route::get('/test-email',[UserController::class,'testEmail']);
-// Route::get('/forget-password',[UserController::class,'forgetPass'])->name('customer.forgetPass');
-// Route::post('/forget-password',[UserController::class,'postForgetPassword']);
-// Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
-// Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
-
 
