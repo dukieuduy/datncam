@@ -64,8 +64,7 @@ class CheckoutController extends Controller
             return redirect()->back()->with('message', 'Chưa chọn sản phẩm nào để thanh toán!');
         }
 
-        $discounts = Discount::where('start_date', '<=', Carbon::now()->format('Y-m-d'))->where('end_date', '>=', Carbon::now()->format('Y-m-d'))->where('is_active', 1)->where('quantity', '>' , 0)->get();
-
+        $discounts = Discount::where('start_date', '<=', Carbon::now())->where('end_date', '>=', Carbon::now())->where('is_active', 1)->where('quantity', '>', 0)->get();
         $cartItems = CartItem::whereIn('id', $cartItemIds)->get();
 
         $totalAmount = $cartItems->sum(function ($item) {

@@ -64,19 +64,19 @@
                                 </ul>
 
                             </div>
-                            <div class="price_box">
-                                @if ($discountedPrice)
-                                    <!-- Hiển thị giá đã giảm và giá gốc -->
-                                    <span class="current_price">{{ number_format($discountedPrice, 0, ',', '.') }}
-                                        vnđ</span>
-                                    <span class="old_price">{{ number_format($variations[0]->price, 0, ',', '.') }}
-                                        vnđ</span>
-                                @else
-                                    <!-- Hiển thị giá gốc nếu không có giảm giá -->
-                                    <span class="current_price">{{ number_format($variations[0]->price, 0, ',', '.') }}
-                                        vnđ</span>
-                                @endif
-                            </div>
+{{--                            <div class="price_box">--}}
+{{--                                @if ($discountedPrice)--}}
+{{--                                    <!-- Hiển thị giá đã giảm và giá gốc -->--}}
+{{--                                    <span class="current_price">{{ number_format($discountedPrice, 0, ',', '.') }}--}}
+{{--                                        vnđ</span>--}}
+{{--                                    <span class="old_price">{{ number_format($variations[0]->price, 0, ',', '.') }}--}}
+{{--                                        vnđ</span>--}}
+{{--                                @else--}}
+{{--                                    <!-- Hiển thị giá gốc nếu không có giảm giá -->--}}
+{{--                                    <span class="current_price">{{ number_format($variations[0]->price, 0, ',', '.') }}--}}
+{{--                                        vnđ</span>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
 
                             <div class="product_desc">
                                 <p>{{ $product->description }} </p>

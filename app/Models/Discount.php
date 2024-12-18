@@ -11,10 +11,12 @@ class Discount extends Model
 
     protected $fillable = [
         'code',
-        'percentage',
+        'value',
+        'type',
         'start_date',
         'end_date',
         'min_purchase_amount',
+        'max_purchase_amount',
         'quantity',
         'is_active',
     ];

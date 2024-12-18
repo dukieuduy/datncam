@@ -18,9 +18,21 @@
         </div>
 
         <div class="mb-3">
-            {!! Form::label('percentage', 'Phần trăm giảm', ['class' => 'form-label']) !!}
-            {!! Form::number('percentage', null, ['class' => 'form-control', 'placeholder' => 'Nhập phần trăm giảm', 'step' => '0.01', 'min' => '0', 'disabled' => isset($isShow) ? 'disabled' : null]) !!}
-            @error('percentage')
+            {!! Form::label('value', 'Giá trị giảm', ['class' => 'form-label']) !!}
+            {!! Form::number('value', null, ['class' => 'form-control', 'placeholder' => 'Nhập phần trăm giảm', 'step' => '0.01', 'min' => '0', 'disabled' => isset($isShow) ? 'disabled' : null]) !!}
+            @error('value')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            {!! Form::label('type', 'Loại giảm giá', ['class' => 'form-label']) !!}
+            {!! Form::select('type', [
+                'percentage' => 'Phần trăm',
+                'fixed' => 'Số tiền cố định',
+                'shipping' => 'Miễn phí vận chuyển'
+            ], null, ['class' => 'form-control', 'disabled' => isset($isShow) ? 'disabled' : null]) !!}
+            @error('type')
             <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -45,6 +57,14 @@
             {!! Form::label('min_purchase_amount', 'Số tiền mua tối thiểu', ['class' => 'form-label']) !!}
             {!! Form::number('min_purchase_amount', null, ['class' => 'form-control', 'placeholder' => 'Nhập số tiền tối thiểu', 'step' => '0.01', 'min' => '0', 'disabled' => isset($isShow) ? 'disabled' : null]) !!}
             @error('min_purchase_amount')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            {!! Form::label('max_purchase_amount', 'Số tiền giảm tối đa', ['class' => 'form-label']) !!}
+            {!! Form::number('max_purchase_amount', null, ['class' => 'form-control', 'placeholder' => 'Nhập số tiền giảm tối đa', 'step' => '0.01', 'min' => '0', 'disabled' => isset($isShow) ? 'disabled' : null]) !!}
+            @error('max_purchase_amount')
             <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
