@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_discounts', function (Blueprint $table) {
+        Schema::create('discount_category', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('discount_id');
-            $table->decimal('discount_amount', 10, 2);
-            $table->dateTime('applied_at');
+            $table->foreignId('discount_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('order_discounts');
+        Schema::dropIfExists('discount_category');
     }
 };

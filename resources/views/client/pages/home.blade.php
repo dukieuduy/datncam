@@ -100,7 +100,7 @@
     <!--shipping area end-->
     <!--product area start-->
 
-    
+
     <section class="product_area mb-50">
         <div class="container">
             <div class="row">
@@ -226,8 +226,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                        @foreach ($products as $item)      
-
+                        @foreach ($products as $item)
                         <div class="single_product_list">
                             <div class="single_product">
                                 <div class="product_name">
@@ -235,24 +234,33 @@
                                     <p class="manufacture_product"><a href="#">Accessories</a></p>
                                 </div>
                                 <div class="product_thumb">
-                                    <a class="primary_img" href="#"> <img src="{{ asset('storage/' . $item->lowest_price_image)}}" alt=""></a>
-                                    {{-- <a class="secondary_img" href="#"><img
-                                            src="{{ asset('storage/' . $item->lowest_price_image)}}" alt=""></a> --}}
-                                            {{-- <a class="secondary_img" href="#"> <img src="{{ asset('storage/' . $item->lowest_price_image)}}" alt=""> </a> --}}
-                                            
-                                    <div class="label_product">
-                                        <span class="label_sale">-57%</span>
-                                    </div>
+                                    <a class="primary_img" href="#">
+                                        <img src="{{ asset('storage/' . $item->lowest_price_image) }}" alt="">
+                                    </a>
+
+                                    @if (isset($item->promotion))
+                                        <div class="label_product">
+                                            <span class="label_sale">-{{ number_format($item->promotion->discount_percentage, 0) }}%</span>
+                                        </div>
+                                    @endif
 
                                     <div class="action_links">
                                         <ul>
-                                            <li class="quick_button"><a href="#" data-bs-toggle="modal"
-                                                                        data-bs-target="#modal_box" title="quick view">
-                                                    <span class="lnr lnr-magnifier"></span></a></li>
-                                            <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><span
-                                                        class="lnr lnr-heart"></span></a></li>
-                                            <li class="compare"><a href="compare.html" title="compare"><span
-                                                        class="lnr lnr-sync"></span></a></li>
+                                            <li class="quick_button">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal_box" title="quick view">
+                                                    <span class="lnr lnr-magnifier"></span>
+                                                </a>
+                                            </li>
+                                            <li class="wishlist">
+                                                <a href="wishlist.html" title="Add to Wishlist">
+                                                    <span class="lnr lnr-heart"></span>
+                                                </a>
+                                            </li>
+                                            <li class="compare">
+                                                <a href="compare.html" title="compare">
+                                                    <span class="lnr lnr-sync"></span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -268,18 +276,26 @@
                                     </div>
                                     <div class="product_footer d-flex align-items-center">
                                         <div class="price_box">
-                                            <span class="regular_price">{{$item->lowest_price_variation}}</span>
+                                            @if (isset($item->promotion))
+                                                <span class="current_price">{{ number_format($item->lowest_price_variation, 2) }} VND</span>
+                                                <span class="old_price">{{ number_format($item->original_price, 2) }} VND</span>
+                                            @else
+                                                <span class="regular_price">{{ number_format($item->original_price, 2) }} VND</span>
+                                            @endif
                                         </div>
                                         <div class="add_to_cart">
-                                            <a href="cart.html" title="add to cart"><span
-                                                    class="lnr lnr-cart"></span></a>
+                                            <a href="cart.html" title="add to cart">
+                                                <span class="lnr lnr-cart"></span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        @endforeach
+                    @endforeach
+
+
+
 
                         {{-- <div class="single_product_list">
                             <div class="single_product">

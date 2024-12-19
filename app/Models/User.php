@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Wishlist::class);
     }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_user', 'user_id', 'discount_id');
+    }
 }

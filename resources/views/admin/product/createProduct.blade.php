@@ -1,81 +1,5 @@
 @extends("admin.app")
 @section("content")
-{{-- <div class="container mt-5">
-    <h2 class="mb-4">Thêm Sản Phẩm</h2>
-    <form>
-        <!-- Tên sản phẩm -->
-        <div class="mb-3">
-            <label for="productName" class="form-label">Tên Sản Phẩm</label>
-            <input type="text" class="form-control" id="productName" name="productName" placeholder="Nhập tên sản phẩm" >
-        </div>
-
-        <!-- Mô tả sản phẩm -->
-        <div class="mb-3">
-            <label for="productDescription" class="form-label">Mô Tả</label>
-            <textarea class="form-control" id="productDescription" name="productDescription" rows="3" placeholder="Nhập mô tả sản phẩm" ></textarea>
-        </div>
-
-        <!-- Danh mục -->
-        <div class="mb-3">
-            <label for="productCategory" class="form-label">Danh Mục</label>
-            <select class="form-select" id="productCategory" name="productCategory" required>
-                <option selected disabled>Chọn danh mục</option>
-                <option value="electronics">Điện tử</option>
-                <option value="fashion">Thời trang</option>
-                <option value="home">Đồ gia dụng</option>
-                <option value="other">Khác</option>
-            </select>
-        </div>
-
-        <!-- Biến thể -->
-        <div id="variantsContainer">
-            <h4 class="mt-4">Biến Thể</h4>
-            <div class="variant-group row border rounded p-3 mb-3">
-                <div class="col-md-4 mb-3">
-                    <label for="variantColor" class="form-label">Màu Sắc</label>
-                    <input type="text" class="form-control" name="variantColor[]" placeholder="Ví dụ: Đỏ" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="variantSize" class="form-label">Kích Thước</label>
-                    <input type="text" class="form-control" name="variantSize[]" placeholder="Ví dụ: M, L, XL" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="variantPrice" class="form-label">Giá</label>
-                    <input type="number" class="form-control" name="variantPrice[]" placeholder="Ví dụ: 500000" required>
-                </div>
-            </div>
-        </div>
-
-        <!-- Nút thêm biến thể -->
-        <button type="button" class="btn btn-secondary" id="addVariantButton">Thêm Biến Thể</button>
-
-        <!-- Nút submit -->
-        <button type="submit" class="btn btn-primary">Lưu Sản Phẩm</button>
-    </form>
-</div>
-
-<!-- Link Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById('addVariantButton').addEventListener('click', function () {
-        const variantGroup = `
-            <div class="variant-group row border rounded p-3 mb-3">
-                <div class="col-md-4 mb-3">
-                    <label for="variantColor" class="form-label">Màu Sắc</label>
-                    <input type="text" class="form-control" name="variantColor[]" placeholder="Ví dụ: Đỏ" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="variantSize" class="form-label">Kích Thước</label>
-                    <input type="text" class="form-control" name="variantSize[]" placeholder="Ví dụ: M, L, XL" required>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="variantPrice" class="form-label">Giá</label>
-                    <input type="number" class="form-control" name="variantPrice[]" placeholder="Ví dụ: 500000" required>
-                </div>
-            </div>`;
-        document.getElementById('variantsContainer').insertAdjacentHTML('beforeend', variantGroup);
-    });
-</script> --}}
 <div class="container">
     <h1>Thêm Sản Phẩm</h1>
 
@@ -83,94 +7,240 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
         <!-- Tên sản phẩm -->
         <div class="form-group">
             <label for="name">Tên Sản Phẩm</label>
-            <input type="text" class="form-control" name="name" id="name" >
-            @if ($errors->has('name'))
-            <div class="alert alert-danger">
-                {{ $errors->first('name') }}
-            </div>
-        @endif
+            <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
         </div>
 
         <!-- Mô tả sản phẩm -->
         <div class="form-group">
             <label for="description">Mô Tả</label>
-            <textarea class="form-control" name="description" id="description" ></textarea>
-            @if ($errors->has('name'))
-            <div class="alert alert-danger">
-                {{ $errors->first('name') }}
-            </div>
-        @endif
+            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
+            @if ($errors->has('description'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('description') }}
+                </div>
+            @endif
         </div>
 
-    
+        <!-- Giá Cũ sản phẩm -->
+        <div class="form-group">
+            <label for="price_old">Giá Cũ</label>
+            <input class="form-control" name="price_old" id="price_old" value="{{ old('price_old') }}">
+            @if ($errors->has('price_old'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('price_old') }}
+                </div>
+            @endif
+        </div>
 
+        <!-- Giá Mới sản phẩm -->
+        <div class="form-group">
+            <label for="price_new">Giá Mới</label>
+            <input class="form-control" name="price_new" id="price_new" value="{{ old('price_new') }}">
+            @if ($errors->has('price_new'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('price_new') }}
+                </div>
+            @endif
+        </div>
 
+        <!-- Danh mục sản phẩm -->
         <div class="form-group">
             <label>Danh Mục Sản Phẩm</label>
             <select name="category" class="form-control">
                 @foreach($category as $value)
-                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                    <option value="{{ $value->id }}" {{ old('category') == $value->id ? 'selected' : '' }}>{{ $value->name }}</option>
                 @endforeach
             </select>
         </div>
 
-        <!-- Chọn thuộc tính cho sản phẩm (Kích thước, Màu sắc) -->
-
-        <!-- Thêm Biến Thể -->
+        <!-- Biến thể sản phẩm -->
         <h3>Biến Thể Sản Phẩm</h3>
-        <div id="variations">
+
+        <div id="variations" class="border" style="padding: 10px">
             <div class="variation">
                 <div class="form-group">
-                    <label for="sku">SKU</label>
-                    <input type="text" name="variations[0][sku]" class="form-control" >
-                </div>
-
-                <div class="form-group">
                     <label for="variation_price">Giá Biến Thể</label>
-                    <input type="number" name="variations[0][price]" class="form-control" >
+                    <input type="number" name="variations[0][price]" class="form-control" value="{{ old('variations.0.price') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="stock_quantity">Số Lượng</label>
-                    <input type="number" name="variations[0][stock_quantity]" class="form-control" >
+                    <input type="number" name="variations[0][stock_quantity]" class="form-control" value="{{ old('variations.0.stock_quantity') }}">
                 </div>
 
                 <div class="form-group">
                     <label for="image">Ảnh</label>
-                    <input type="file" name="variations[0][image]" class="form-control" >
+                    <input type="file" name="variations[0][image]" class="form-control">
                 </div>
-                <!-- Chọn thuộc tính cho biến thể -->
-                @foreach($attributes as $attribute)
-                    <div class="form-group">
-                        <label>{{ $attribute->name }}</label>
-                        <select name="variations[0][attributes][{{ $attribute->id }}]" class="form-control" accept="image/*">
-                            @foreach($attribute->values as $value)
-                                <option value="{{ $value->id }}">{{ $value->value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                @endforeach
+
+                <!-- Thuộc tính của biến thể -->
+                <!-- Color -->
+                 <div class="form-group">
+                     <label>Color</label>
+                     <select name="variations[0][attributes][color]" class="form-control attribute-select color-select" data-type="color">
+                         <option value="">Chọn màu</option>
+                         @foreach ($colorValues as $color)
+                             <option value="{{ $color->id }}">{{ $color->value }}</option> <!-- Use color ID here -->
+                         @endforeach
+                     </select>
+                 </div>
+                <!-- Size -->
+                <div class="form-group">
+                    <label>Size</label>
+                    <select name="variations[0][attributes][size]" class="form-control attribute-select size-select" data-type="size">
+                        <option value="">Chọn size</option>
+                        @foreach ($sizeValues as $size)
+                            <option value="{{ $size->id }}">{{ $size->value }}</option> <!-- Use size ID here -->
+
+                        @endforeach
+                    </select>
+                </div>
+
+
+
             </div>
         </div>
 
+        <!-- Nút thêm và xóa biến thể -->
         <button type="button" id="addVariation" class="btn btn-primary mt-3">Thêm Biến Thể</button>
+        <button type="button" id="removeVariation" class="btn btn-danger mt-3">Xóa Biến Thể Gần Nhất</button>
 
+        <!-- Nút lưu sản phẩm -->
         <button type="submit" class="btn btn-success mt-3">Lưu Sản Phẩm</button>
     </form>
 </div>
 
-<script>
-    let variationIndex = 1;
-    document.getElementById('addVariation').addEventListener('click', function() {
-        let variationHTML = document.querySelector('.variation').outerHTML;
-        variationHTML = variationHTML.replace(/\[0\]/g, '[' + variationIndex + ']');
-        document.getElementById('variations').insertAdjacentHTML('beforeend', variationHTML);
-        variationIndex++;
+{{-- <script>
+    let selectedCombinations = [];
+
+    // Khóa các tùy chọn đã được chọn trong các dropdown
+    function updateDisabledOptions() {
+        selectedCombinations = [];
+
+        document.querySelectorAll('.variation').forEach(variation => {
+            const size = variation.querySelector('.size-select').value;
+            const color = variation.querySelector('.color-select').value;
+
+            if (size && color) {
+                selectedCombinations.push(`${size}-${color}`);
+            }
+        });
+
+        document.querySelectorAll('.variation').forEach(variation => {
+            const sizeSelect = variation.querySelector('.size-select');
+            const colorSelect = variation.querySelector('.color-select');
+
+            if (sizeSelect && colorSelect) {
+                colorSelect.querySelectorAll('option').forEach(option => {
+                    const combination = `${sizeSelect.value}-${option.value}`;
+                    option.disabled = selectedCombinations.includes(combination);
+                });
+            }
+        });
+    }
+
+    // Thêm biến thể mới
+    document.getElementById('addVariation').addEventListener('click', () => {
+        const newVariation = document.querySelector('.variation').outerHTML.replace(/\[0\]/g, `[${Date.now()}]`);
+        document.getElementById('variations').insertAdjacentHTML('beforeend', newVariation);
+        updateDisabledOptions();
     });
+
+    // Xóa biến thể gần nhất
+    document.getElementById('removeVariation').addEventListener('click', () => {
+        const variations = document.querySelectorAll('.variation');
+        if (variations.length > 1) {
+            variations[variations.length - 1].remove();
+            updateDisabledOptions();
+        }
+    });
+
+    // Lắng nghe sự thay đổi trong các dropdown
+    document.addEventListener('change', (e) => {
+        if (e.target.classList.contains('attribute-select')) {
+            updateDisabledOptions();
+        }
+    });
+
+    // Khởi tạo
+    updateDisabledOptions();
+</script> --}}
+<script>
+    let selectedCombinations = [];
+
+    // Khóa các tùy chọn đã được chọn trong các dropdown
+    function updateDisabledOptions() {
+        selectedCombinations = [];
+
+        // Lấy tất cả các variation đã chọn
+        document.querySelectorAll('.variation').forEach(variation => {
+            const size = variation.querySelector('.size-select').value;
+            const color = variation.querySelector('.color-select').value;
+
+            if (size && color) {
+                selectedCombinations.push(`${size}-${color}`);
+            }
+        });
+
+        // Cập nhật các tùy chọn bị khóa
+        document.querySelectorAll('.variation').forEach(variation => {
+            const sizeSelect = variation.querySelector('.size-select');
+            const colorSelect = variation.querySelector('.color-select');
+
+            if (sizeSelect && colorSelect) {
+                colorSelect.querySelectorAll('option').forEach(option => {
+                    const combination = `${sizeSelect.value}-${option.value}`;
+                    option.disabled = selectedCombinations.includes(combination);
+                });
+
+                sizeSelect.querySelectorAll('option').forEach(option => {
+                    const combination = `${option.value}-${colorSelect.value}`;
+                    option.disabled = selectedCombinations.includes(combination);
+                });
+            }
+        });
+    }
+
+    // Thêm biến thể mới
+    document.getElementById('addVariation').addEventListener('click', () => {
+        const newVariation = document.querySelector('.variation').outerHTML.replace(/\[0\]/g, `[${Date.now()}]`);
+        document.getElementById('variations').insertAdjacentHTML('beforeend', newVariation);
+        updateDisabledOptions();
+    });
+
+    // Xóa biến thể gần nhất
+    document.getElementById('removeVariation').addEventListener('click', () => {
+        const variations = document.querySelectorAll('.variation');
+        if (variations.length > 1) {
+            variations[variations.length - 1].remove();
+            updateDisabledOptions();
+        }
+    });
+
+    // Lắng nghe sự thay đổi trong các dropdown
+    document.addEventListener('change', (e) => {
+        if (e.target.classList.contains('attribute-select')) {
+            updateDisabledOptions();
+        }
+    });
+
+    // Khởi tạo
+    updateDisabledOptions();
 </script>
 @endsection
