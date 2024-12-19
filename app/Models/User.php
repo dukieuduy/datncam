@@ -49,12 +49,18 @@ class User extends Authenticatable
     ];
 
     public function isAdmin()
+    
     {
-        return $this->type === self::TYPE_ADMIN;
+        return $this->type ===  self::TYPE_ADMIN;
     }
     public function isMember()
+    
     {
-        return $this->type == self::TYPE_MEMBER;
+        return $this->type ==  self::TYPE_MEMBER;
+    }
+    public function wishlist()
+    {
+        return $this->hasOne(Wishlist::class);
     }
 
     public function discounts()

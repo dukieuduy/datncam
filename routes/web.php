@@ -45,7 +45,8 @@ Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admi
 // // whishlist
 
 Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
-
+Route::post('/addWishlist/{product_id}', [WishlistController::class, 'create'])->name('wishlist.create');
+Route::delete('/wishlist/delete/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
 
 // KIỀU DUY DU
@@ -88,6 +89,10 @@ Route::delete('/cart/remove/{cartItemId}', [CartController::class, 'removeFromCa
 
 Route::post('/confirm_checkout', [CheckoutController::class, 'confirmCheckout'])->name('confirm_checkout');
 Route::get('get-data-discount/{discount}', [CheckoutController::class, 'getDataDiscount'])->name('get-data-discount');
-Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+
+Route::post('pay', [CheckoutController::class, 'pay'])->name('pay');
+Route::get('/momo_payment', [CheckoutController::class, 'momo_payment'])->name('momo_payment'); // thanh toán bằng momo
+Route::get('/momo_callback', [CheckoutController::class, 'momoCallBack'])->name('momo_callback'); // thanh toán bằng momo
 // }}
 
