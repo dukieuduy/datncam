@@ -62,7 +62,8 @@ Route::delete('/cart/{id}', [AdminCartController::class, 'destroy'])->name('admi
 // // whishlist
 
 Route::get('/wishlist', [WishlistController::class, 'show'])->name('wishlist.show');
-
+Route::post('/addWishlist/{product_id}', [WishlistController::class, 'create'])->name('wishlist.create');
+Route::delete('/wishlist/delete/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
 
 // KIỀU DUY DU

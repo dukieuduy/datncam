@@ -1,6 +1,5 @@
 @extends('app')
 @section('content')
-
     <div class="breadcrumbs_area">
         <div class="container">
             <div class="row">
@@ -25,46 +24,48 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th class="product_remove">Delete</th>
-                                            <th class="product_thumb">Image</th>
-                                            <th class="product_name">Product</th>
-                                            <th class="product-price">Price</th>
-                                            <th class="product_quantity">Stock Status</th>
-                                            <th class="product_total">Add To Cart</th>
+                                            <th class="product_remove">chọn tất cả</th>
+                                            <th class="product_img">Ảnh</th>
+                                            <th class="product_name">Sản phẩm</th>
+                                            <th class="product-price">Giá</th>
+                                            <th class="product-action">Hành động</th>
+                                            <th class="product"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="product_remove"><a href="#">X</a></td>
-                                            <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="#">Handbag fringilla</a></td>
-                                            <td class="product-price">£65.00</td>
-                                            <td class="product_quantity">In Stock</td>
-                                            <td class="product_total"><a href="#">Add To Cart</a></td>
+                                        @foreach ($wishlistProducts as $product)
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" id="" name="delete" value="">
+                                                </td>
+                                                <td class="product_thumb"><img src="{{ Storage::url($product->image) }}"
+                                                        alt="">
+                                                </td>
+                                                <td class="product_name"><a href="#">{{ $product->name }}</a></td>
+                                                <td class="product-price">{{ $product->price }}</td>
+                                                <td>
+                                                    <form method="POST"
+                                                        action="{{ route('wishlist.destroy', ['id' => $product->id]) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit">X</button>
+                                                    </form>
+                                                </td>
+                                                <td><a href=""> xem sản phẩm </a></td>
+                                            </tr>
+                                        @endforeach
 
+                                        {{-- <tr>
+                                            <td class="product_remove"><a href="#"></a></td>
+                                            <td class="product_thumb"><a href="#"><img
 
-                                        </tr>
-
-                                        <tr>
-                                            <td class="product_remove"><a href="#">X</a></td>
-                                            <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a></td>
+                                                        src="assets/img/s-product/product2.jpg" alt=""></a></td>
                                             <td class="product_name"><a href="#">Handbags justo</a></td>
                                             <td class="product-price">£90.00</td>
-                                            <td class="product_quantity">In Stock</td>
                                             <td class="product_total"><a href="#">Add To Cart</a></td>
 
+                                        </tr> --}}
 
-                                        </tr>
-                                        <tr>
-                                            <td class="product_remove"><a href="#">X</a></td>
-                                            <td class="product_thumb"><a href="#"><img src="assets/img/s-product/product5.jpg" alt=""></a></td>
-                                            <td class="product_name"><a href="#">Handbag elit</a></td>
-                                            <td class="product-price">£80.00</td>
-                                            <td class="product_quantity">In Stock</td>
-                                            <td class="product_total"><a href="#">Add To Cart</a></td>
-
-
-                                        </tr>
 
                                     </tbody>
                                 </table>
@@ -92,7 +93,4 @@
 
         </div>
     </div>
-
-
-
 @endsection

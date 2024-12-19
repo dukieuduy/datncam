@@ -26,7 +26,7 @@
                                         <a class="nav-link" href="{{ route('login') }}">{{ __('đăng nhập') }}</a>
                                     </li>
                                 @endif
-    
+
                                 @if (Route::has('register'))
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('register') }}">{{ __('đăng ký') }}</a>
@@ -37,14 +37,14 @@
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
                                     </a>
-    
+
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
-    
+
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>
@@ -82,7 +82,7 @@
                         <div class="middel_right_info">
 
                             <div class="header_wishlist">
-                                <a href="wishlist.html"><span class="lnr lnr-heart"></span> Wish list </a>
+                                <a href="{{ route('wishlist.show') }}"><span class="lnr lnr-heart"></span> Wish list </a>
                                 <span class="wishlist_quantity">3</span>
                             </div>
                             <div class="mini_cart_wrapper">
