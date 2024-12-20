@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\CartController;
+<<<<<<< HEAD
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\IsAdmin;
@@ -15,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\AdminCartController;
 
 // use App\Http\Controllers\AdminCartController;
+=======
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AdminCartController;
+>>>>>>> 8c1884c419cde8324e16dfa787f728e295f7bcd7
 
 /*
 |--------------------------------------------------------------------------
@@ -150,4 +162,8 @@ Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkou
 // Route::get('/forget-password',[UserController::class,'forgetPass'])->name('customer.forgetPass');
 // Route::post('/forget-password',[UserController::class,'postForgetPassword']);
 // Route::get('/get-password/customer/{token}',[UserController::class,'getPass'])->name('customer.getPass');
+<<<<<<< HEAD
 // Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
+=======
+// Route::post('/get-password/customer/{token}',[UserController::class,'postGetPass']);
+>>>>>>> 8c1884c419cde8324e16dfa787f728e295f7bcd7

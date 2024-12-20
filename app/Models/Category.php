@@ -18,6 +18,7 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+<<<<<<< HEAD
 
     public function promotions()
     {
@@ -29,3 +30,6 @@ class Category extends Model
         return $this->belongsToMany(Discount::class, 'discount_category', 'category_id', 'discount_id');
     }
 }
+=======
+}
+>>>>>>> 8c1884c419cde8324e16dfa787f728e295f7bcd7
