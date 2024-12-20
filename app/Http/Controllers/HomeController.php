@@ -67,7 +67,6 @@ class HomeController extends Controller
             return $variation->stock_quantity > 0;
         });
 
-<<<<<<< HEAD
         // Lấy các giá trị màu sắc từ các biến thể có số lượng > 0
         $colorAttributes = $availableVariations->flatMap(function ($variation) {
             return $variation->variationAttributes->filter(function ($attribute) {
@@ -97,6 +96,4 @@ class HomeController extends Controller
 
 
 
-=======
->>>>>>> 8c1884c419cde8324e16dfa787f728e295f7bcd7
 }
