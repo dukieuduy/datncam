@@ -18,68 +18,67 @@
                     <!-- Cart Table -->
                     <div class="card shadow border-0">
                         <div class="card-header text-danger p-3">
-                            <img
-                                src="https://static.vecteezy.com/system/resources/thumbnails/021/491/887/small_2x/shopping-cart-element-for-delivery-concept-png.png"
-                                alt="cart_icon" width="40" height="40">
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/021/491/887/small_2x/shopping-cart-element-for-delivery-concept-png.png"
+                                 alt="cart_icon" width="40" height="40">
                             <span style="margin-left: 10px;">Giỏ hàng của: <b>{{ Auth::user()->name }}</b> </span>
                         </div>
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0">
+                                <table class="table table-hover align-middle mb-0" style="table-layout: fixed; width: 100%;">
                                     <thead class="table-light">
                                         <tr>
-                                            <th scope="col">
+                                            <th scope="col" style="width: 80px;"> <!-- Giảm chiều rộng cột checkbox -->
                                                 <input type="checkbox" class="form-check-input" id="select-all">
                                             </th>
-                                            <th scope="col">Ảnh</th>
-                                            <th scope="col">Tên sản phẩm</th>
-                                            <th scope="col">Phân loại</th>
-                                            <th scope="col">Giá</th>
-                                            <th scope="col">Số lượng</th>
-                                            <th scope="col">Thành tiền</th>
-                                            <th scope="col">Xóa</th>
+                                            <th scope="col" style="width: 120px;">Sản phẩm</th> <!-- Giảm chiều rộng cột ảnh -->
+                                            <th scope="col" style="width: 100px;">Phân loại</th> <!-- Giảm chiều rộng cột phân loại -->
+                                            <th scope="col" style="width: 80px;">Giá</th> <!-- Giảm chiều rộng cột giá -->
+                                            <th scope="col" style="width: 80px;">Số lượng</th> <!-- Giảm chiều rộng cột số lượng -->
+                                            <th scope="col" style="width: 80px;">Thành tiền</th> <!-- Giảm chiều rộng cột thành tiền -->
+                                            <th scope="col" style="width: 80px; min-width: 80px;">Xóa</th> <!-- Cố định chiều rộng cột xóa -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($cartItems as $key)
                                         <tr>
-                                            <td>
+                                            <td style="width: 50px;">
                                                 <input type="checkbox" class="form-check-input item-checkbox" name="cart_item_id[]"
                                                     value="{{ $key->id }}">
                                             </td>
-                                            <td>
-                                                <img src="{{ \Illuminate\Support\Facades\Storage::url($key->image) }} "
-                                                    class="img-thumbnail"
-                                                    style="width: 100px; height: 100px;" alt="Product">
-                                            </td>
-                                            <td>{{ $key->product_name }}</td>
+                                            <td style="width: 80px;">
+                                            <p class="mb-1" style="text-align: center; font-size: 14px; font-weight: bold;">{{ $key->product_name }}</p>
 
-                                            <td>
+                                                <img src="{{ \Illuminate\Support\Facades\Storage::url($key->image) }} "
+                                                     class="img-thumbnail"
+                                                     style="width: 100px; height: 100px; max-width: 100%; height: auto;" alt="Product">
+                                            </td>
+
+                                            <td style="width: 180px;">
                                                 <div class="d-flex flex-column align-items-start">
                                                     <div class="mb-2">
                                                         <label for="size" class="form-label mb-1">Kích cỡ</label>
-                                                        <select id="size" class="form-select form-select-sm">
+                                                        <select id="size" class="form-select form-select-sm" style="width: 100%; max-width: 150px;">
                                                             <option value="">{{$key->size}}</option>
                                                         </select>
                                                     </div>
                                                     <div>
                                                         <label for="color" class="form-label mb-1">Màu sắc</label>
-                                                        <select id="color" class="form-select form-select-sm">
+                                                        <select id="color" class="form-select form-select-sm" style="width: 100%; max-width: 150px;">
                                                             <option value="">{{$key->color}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ number_format($key->price, 0, ',', '.') }}đ</td>
-                                            <td>
+                                            <td style="width: 80px;">{{ number_format($key->price, 0, ',', '.') }}đ</td>
+                                            <td style="width: 120px;">
                                                 <input type="number" class="form-control w-50 quantity-input"
-                                                    value="{{ $key->quantity }}" min="1" max="100"
-                                                    data-price="{{ $key->price }}" onchange="updateCart(this)">
+                                                       value="{{ $key->quantity }}" min="1" max="100"
+                                                       data-price="{{ $key->price }}" onchange="updateCart(this)" style="width: 100%;"> 
                                             </td>
-                                            <td class="product_total">
+                                            <td class="product_total" style="width: 80px;">
                                                 <span>{{ number_format($key->quantity * $key->price, 0, ',', '.') }}</span>đ
                                             </td>
-                                            <td>
+                                            <td style="width: 80px; min-width: 80px;">
                                                 <!-- Delete Button to Trigger Modal -->
                                                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" data-item-id="{{ $key->id }}">
                                                     <i class="fa fa-trash"></i>
@@ -97,9 +96,8 @@
                         <div class="col-lg-6 mt-3">
                             <div class="card shadow border-0">
                                 <div class="card-header text-danger">
-                                    <img
-                                        src="https://images.emojiterra.com/microsoft/fluent-emoji/15.1/1024px/1f4b8_color.png"
-                                        alt="total_money_icon" width="30" height="30">
+                                    <img src="https://images.emojiterra.com/microsoft/fluent-emoji/15.1/1024px/1f4b8_color.png"
+                                         alt="total_money_icon" width="30" height="30">
                                     <span style="margin-left: 10px;">Tổng giỏ hàng</span>
                                 </div>
                                 <div class="card-body">
@@ -140,14 +138,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <img src="https://cdn-icons-png.flaticon.com/512/10608/10608888.png"
-                    alt="" srcset="" width="20px" height="20px" style="margin-right: 10px;">
+                     alt="" srcset="" width="20px" height="20px" style="margin-right: 10px;">
                 <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 Bạn ơi, bạn có thực sự muốn xóa mình khỏi giỏ hàng?
                 <img src="https://png.pngtree.com/png-clipart/20220928/original/pngtree-sad-cute-cartoon-facial-expression-png-image_8639691.png"
-                    alt="" width="25px" height="25px" style="margin-left: 5px;">
+                     alt="" width="25px" height="25px" style="margin-left: 5px;">
             </div>
             <div class="modal-footer">
                 <form id="deleteForm" method="POST">
@@ -184,10 +182,7 @@
         if (successMessage) {
             successMessage.style.display = 'none';
         }
-    }, 5000);
+    }, 3000);
     
 </script>
-
-
-
 @endsection
