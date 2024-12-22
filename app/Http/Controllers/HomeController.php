@@ -19,10 +19,6 @@ class HomeController extends Controller
         // ->with(['lowestVariation']) // Định nghĩa mối quan hệ lowestVariation bên dưới
         // ->get();
 
-        //Danh mục
-        $categories = Category::all();
-
-        //Sản phẩm
 
         //Danh mục
         $categories = Category::all();

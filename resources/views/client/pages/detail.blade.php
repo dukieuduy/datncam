@@ -85,10 +85,22 @@
 
                             </div>
                             <div class="price_box">
-                                <span class="current_price">{{$variations[0]->price}}vnđ</span>
+                                <span class="current_price">{{ $variations[0]->price }}vnđ</span>
                                 <span class="old_price">$80.00</span>
+{{--                            <div class="price_box">--}}
+{{--                                @if ($discountedPrice)--}}
+{{--                                    <!-- Hiển thị giá đã giảm và giá gốc -->--}}
+{{--                                    <span class="current_price">{{ number_format($discountedPrice, 0, ',', '.') }}--}}
+{{--                                        vnđ</span>--}}
+{{--                                    <span class="old_price">{{ number_format($variations[0]->price, 0, ',', '.') }}--}}
+{{--                                        vnđ</span>--}}
+{{--                                @else--}}
+{{--                                    <!-- Hiển thị giá gốc nếu không có giảm giá -->--}}
+{{--                                    <span class="current_price">{{ number_format($variations[0]->price, 0, ',', '.') }}--}}
+{{--                                        vnđ</span>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
 
-                            </div>
                             <div class="product_desc">
                                 <p>{{ $product->description }} </p>
                                 <p>{{ $product->description }} </p>
@@ -146,6 +158,7 @@
                                 <button class="button" type="submit">Thêm vào Giỏ Hàng</button>
                             </div>
                         </form>
+<<<<<<< HEAD
 
                         <form action="{{ route('wishlist.create', $product->id) }}" method="POST">
                             @csrf
@@ -159,6 +172,21 @@
                                     <li><button title="Add to wishlist">+ Compare</button></li>
                                 </ul>
                             </div>
+=======
+                        <div class=" product_d_action">
+                            <ul>
+                                <li><a href="#" title="Add to wishlist">+ Thêm vào danh mục yêu thích </a></li>
+                                <li><a href="#" title="Add to wishlist">+ Compare</a></li>
+                            </ul>
+                        </div>
+                        <div class="product_meta">
+                            <span>Danh mục: <a href="#">{{ $category->name }}</a></span>
+                            <div style="margin-top: 15px">
+                                <label>Số lượng sản phẩm trong kho {{ $stockQuantity }}</label>
+                            </div>
+                        </div>
+
+>>>>>>> a21fe76e5e2b4eaa945435eefd94cfc3efcc881c
                         </form>
 
                         <div class="product_meta">
@@ -171,11 +199,16 @@
 
                         <div class="priduct_social">
                             <ul>
-                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> Like</a></li>
-                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>
-                                <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> save</a></li>
-                                <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> share</a></li>
-                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> linked</a></li>
+                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i>
+                                        Like</a></li>
+                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i>
+                                        tweet</a></li>
+                                <li><a class="pinterest" href="#" title="pinterest"><i
+                                            class="fa fa-pinterest"></i> save</a></li>
+                                <li><a class="google-plus" href="#" title="google +"><i
+                                            class="fa fa-google-plus"></i> share</a></li>
+                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i>
+                                        linked</a></li>
                             </ul>
                         </div>
 
