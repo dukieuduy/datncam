@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'price_old','price_new', 
+        'name', 'description', 'price_old','price_new',
         'category_id', 'is_active'
     ];
 
@@ -28,5 +28,10 @@ class Product extends Model
             return $this->hasOne(ProductVariation::class)
                 ->select('id', 'product_id', 'price', 'image')
                 ->orderBy('price', 'asc'); // Lấy biến thể có giá thấp nhất
+        }
+
+        public function sales()
+        {
+            return $this->hasMany(Sale::class);
         }
 }

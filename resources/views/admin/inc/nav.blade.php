@@ -81,8 +81,8 @@
         >
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý khuyến mãi:</h6>
-                <a class="collapse-item" href="{{ route('admin.discounts.index') }}">Danh sách mã giảm giá</a>
-                <a class="collapse-item" href="{{ route("admin.discounts.create") }}">Thêm mã giảm giá</a>
+                <a class="collapse-item" href="{{ route('admin.discounts.index') }}">Mã giảm giá</a>
+                <a class="collapse-item" href="{{ route("admin.sales.index") }}">Chương trình khuyến mãi</a>
             </div>
         </div>
     </li>

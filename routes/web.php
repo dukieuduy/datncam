@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\AdminCartController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Auth;
@@ -82,6 +83,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', IsAdmin::class])->gr
 
     Route::resource('discounts', DiscountController::class);
     Route::put('discounts/{discount}/change-status', [DiscountController::class, 'changeStatus'])->name('discounts.changeStatus');
+
+    Route::resource('sales', SaleController::class);
+    Route::put('sales/{sale}/change-status', [SaleController::class, 'changeStatus'])->name('sales.changeStatus');
 
 
 });
